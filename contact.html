@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتصل بنا - مركز منابر الأقصى</title>
+<script>
+  // تطبيق الوضع الليلي/النهاري فوراً قبل ظهور الصفحة لمنع أي "ومضة" غير مرغوبة
+  (function(){
+    try{
+      var saved = localStorage.getItem('siteTheme');
+      if(saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    }catch(e){}
+  })();
+</script>
+<style>
+  :root{
+    --olive-deep:#2f3b2a;
+    --olive:#4a5d3f;
+    --olive-soft:#6b7d5a;
+    --cream:#f7f3e8;
+    --gold:#c9973f;
+    --gold-soft:#e8d4a8;
+    --ink:#23291f;
+    --surface:#fff;
+    --surface-alt:#fbf9f3;
+    --border:#ece5d2;
+    --border-soft:#e3ddc9;
+    --muted:#aaa;
+    --heading:var(--olive-deep);
+  }
+
+  html[data-theme="dark"]{
+    --cream:#161b13;
+    --ink:#eae5d6;
+    --olive-soft:#a9bd97;
+    --surface:#232a1e;
+    --surface-alt:#1c2117;
+    --border:#3a4432;
+    --border-soft:#3a4432;
+    --muted:#8a917d;
+    --heading:#e8d4a8;
+  }
+  html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    min-height:100%;
+    font-family:'Almarai','Segoe UI',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  body{
+    background:
+      radial-gradient(circle at 10% 0%, rgba(201,151,63,0.08), transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(74,93,63,0.10), transparent 45%),
+      var(--cream);
+    min-height:100vh;
+    padding:60px 20px;
+    display:flex;
+    justify-content:center;
+  }
+  .back-link{
+    position:fixed;
+    top:24px;
+    right:24px;
+    font-size:13px;
+    color:var(--olive-soft);
+    text-decoration:none;
+    border-bottom:1px dashed var(--olive-soft);
+  }
+  .back-link:hover{ color:var(--heading); }
+
+  .card{
+    width:100%;
+    max-width:460px;
+    background:var(--surface);
+    border-radius:20px;
+    box-shadow:0 18px 40px -16px rgba(47,59,42,0.18);
+    padding:40px 34px;
+    animation:rise .5s ease both;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .badge{
+    width:64px; height:64px;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--olive), var(--olive-deep));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gold-soft);
+    font-size:28px;
+    margin:0 auto 18px;
+  }
+
+  h1{
+    font-size:21px;
+    color:var(--heading);
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .sub{
+    font-size:13px;
+    color:var(--olive-soft);
+    text-align:center;
+    margin-bottom:30px;
+  }
+
+  .contact-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--surface-alt);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .contact-item .icon{
+    width:42px; height:42px;
+    border-radius:10px;
+    background:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .contact-item .text{
+    font-size:13.5px;
+  }
+  .contact-item .text .label{
+    color:var(--olive-soft);
+    font-size:11.5px;
+    margin-bottom:2px;
+  }
+  .contact-item .text .value{
+    color:var(--heading);
+    font-weight:700;
+    direction:ltr;
+    text-align:right;
+    display:block;
+  }
+
+  .note{
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+    margin-top:20px;
+    line-height:1.7;
+  }
+</style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">→ عودة للرئيسية</a>
+
+  <div class="card">
+
+<div class="badge" style="overflow:hidden; padding:0;">
+  <img src="53EE.jpg" alt="شعار المدرسة" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+</div>
+
+    <h1>إتصل بنا</h1>
+    <p class="sub">نسعد بتواصلكم معنا في أي وقت</p>
+
+    <div class="contact-item">
+      <div class="icon">📞</div>
+      <div class="text">
+        <div class="label">رقم الهاتف الأساسي</div>
+        <span class="value" id="contactPhoneValue">جاري التحميل...</span>
+      </div>
+    </div>
+
+  <div class="contact-item">
+      <div class="icon">📞</div>
+      <div class="text">
+        <div class="label">رقم الواتساب</div>
+        <span class="value" id="contactWhatsappValue">جاري التحميل...</span>
+      </div>
+    </div>
+
+
+    <div class="contact-item">
+      <div class="icon">📍</div>
+      <div class="text">
+        <div class="label">الموقع</div>
+        <span class="value" id="contactLocationValue" style="direction:rtl; text-align:right;">جاري التحميل...</span>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB0xc27Y_eVcV96Lwm1yj6geQpOtn0dL5M",
+    authDomain: "israa-school.firebaseapp.com",
+    projectId: "israa-school",
+    storageBucket: "israa-school.firebasestorage.app",
+    messagingSenderId: "1059398708855",
+    appId: "1:1059398708855:web:605a2f3bb74f47e6b9a072"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  // القيم الافتراضية تُستخدم فقط إن لم يقم المسؤول بحفظ بيانات مخصّصة بعد
+  const DEFAULTS = {
+    phone: '0598377899',
+    whatsapp: '+972598377899',
+    location: 'غزة - المخابرات - بجوار صالة قصر الورود'
+  };
+
+  async function loadContactInfo(){
+    let data = DEFAULTS;
+    try{
+      const snap = await getDoc(doc(db,'settings','contactInfo'));
+      if(snap.exists()){
+        const d = snap.data();
+        data = {
+          phone: d.phone || DEFAULTS.phone,
+          whatsapp: d.whatsapp || DEFAULTS.whatsapp,
+          location: d.location || DEFAULTS.location
+        };
+      }
+    }catch(e){ console.error(e); }
+    document.getElementById('contactPhoneValue').textContent = data.phone;
+    document.getElementById('contactWhatsappValue').textContent = data.whatsapp;
+    document.getElementById('contactLocationValue').textContent = data.location;
+  }
+  loadContactInfo();
+</script>
+
+</body>
+</html>

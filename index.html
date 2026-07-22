@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مركز منابر الأقصى</title>
+<script>
+  // تطبيق الوضع الليلي/النهاري فوراً قبل ظهور الصفحة لمنع أي "ومضة" غير مرغوبة
+  (function(){
+    try{
+      var saved = localStorage.getItem('siteTheme');
+      if(saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    }catch(e){}
+  })();
+</script>
+<style>
+  :root{
+    --olive-deep:#2f3b2a;
+    --olive:#4a5d3f;
+    --olive-soft:#6b7d5a;
+    --cream:#f7f3e8;
+    --gold:#c9973f;
+    --gold-soft:#e8d4a8;
+    --ink:#23291f;
+    --error:#a8453a;
+    --radius:18px;
+    --bg:var(--cream);
+    --surface:#ffffff;
+    --heading:var(--olive-deep);
+    --menu-icon:var(--olive-deep);
+    --overlay-tint:rgba(247,243,232,0.72);
+  }
+
+  html[data-theme="dark"]{
+    --bg:#161b13;
+    --surface:#232a1e;
+    --ink:#eae5d6;
+    --olive-soft:#a9bd97;
+    --heading:#e8d4a8;
+    --menu-icon:#e8d4a8;
+    --overlay-tint:rgba(10,13,8,0.8);
+  }
+  html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html,body{
+    height:100%;
+    font-family:'Almarai','Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    overflow:hidden;
+  }
+
+  body{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .bg-layer{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,151,63,0.10), transparent 40%),
+      radial-gradient(circle at 80% 75%, rgba(74,93,63,0.14), transparent 45%),
+      var(--bg);
+    overflow:hidden;
+  }
+
+  .motif{
+    position:absolute;
+    width:220px;
+    height:220px;
+    opacity:0.07;
+    background-image:repeating-conic-gradient(var(--olive) 0deg 45deg, transparent 45deg 90deg);
+    border-radius:50%;
+    animation:drift 38s linear infinite;
+  }
+  .motif:nth-child(1){ top:-60px; right:-60px; animation-duration:50s;}
+  .motif:nth-child(2){ bottom:-80px; left:-40px; width:300px; height:300px; animation-duration:65s; animation-direction:reverse;}
+  .motif:nth-child(3){ top:40%; left:-100px; width:180px; height:180px; animation-duration:44s; opacity:0.05;}
+
+  @keyframes drift{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+
+  .grain{
+    position:absolute; inset:0;
+    background-image:radial-gradient(rgba(47,59,42,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+    pointer-events:none;
+  }
+
+  /* ── Custom background image ── */
+  .bg-image-layer{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    background-image:url('53EE.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:1;
+  }
+  .bg-image-layer .overlay-dim{
+    position:absolute;
+    inset:0;
+    background:var(--overlay-tint);
+    backdrop-filter:blur(1px);
+  }
+
+  /* ── Floating particles ── */
+  .particles-canvas{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+  }
+
+  /* ── Floating shapes animation ── */
+  .float-shape{
+    position:absolute;
+    border-radius:50%;
+    opacity:0;
+    animation:floatUp 12s ease-in infinite;
+  }
+  @keyframes floatUp{
+    0%{ opacity:0; transform:translateY(0) scale(0.6) rotate(0deg); }
+    10%{ opacity:0.12; }
+    80%{ opacity:0.07; }
+    100%{ opacity:0; transform:translateY(-100vh) scale(1.1) rotate(180deg); }
+  }
+
+  /* ── Background upload button ── */
+  .bg-upload-btn{
+    position:fixed;
+    bottom:24px;
+    left:24px;
+    z-index:50;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:none;
+    background:var(--cream);
+    box-shadow:0 2px 10px rgba(47,59,42,0.18);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    transition:transform .25s ease, box-shadow .25s ease;
+    title:'تغيير صورة الخلفية';
+  }
+  .bg-upload-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 4px 18px rgba(47,59,42,0.25);
+  }
+
+  .bg-upload-tooltip{
+    position:fixed;
+    bottom:78px;
+    left:16px;
+    z-index:50;
+    background:var(--olive-deep);
+    color:var(--cream);
+    font-size:12px;
+    padding:6px 12px;
+    border-radius:10px;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease;
+    direction:rtl;
+  }
+  .bg-upload-tooltip.show{ opacity:1; }
+  .bg-upload-tooltip::after{
+    content:'';
+    position:absolute;
+    bottom:-6px;
+    left:14px;
+    border:6px solid transparent;
+    border-top-color:var(--olive-deep);
+    border-bottom:none;
+  }
+
+  /* ── Remove bg button ── */
+  .bg-remove-btn{
+    position:fixed;
+    bottom:24px;
+    left:78px;
+    z-index:50;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:none;
+    background:#a8453a;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 8px rgba(168,69,58,0.3);
+    transition:transform .2s ease;
+  }
+  .bg-remove-btn:hover{ transform:scale(1.1); }
+  .bg-remove-btn.visible{ display:flex; }
+
+  .menu-btn{
+    position:fixed;
+    top:24px;
+    left:24px;
+    z-index:40;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:none;
+    background:var(--surface);
+    box-shadow:0 2px 10px rgba(47,59,42,0.15);
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    transition:transform .25s ease, background .3s ease;
+  }
+  .menu-btn:hover{ transform:scale(1.06); }
+  .menu-btn span{
+    display:block;
+    width:20px;
+    height:2px;
+    background:var(--menu-icon);
+    border-radius:2px;
+    transition:all .3s ease;
+  }
+  .menu-btn.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-btn.open span:nth-child(2){ opacity:0; }
+  .menu-btn.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .side-panel{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:280px;
+    background:var(--olive-deep);
+    z-index:35;
+    transform:translateX(-100%);
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+    padding:100px 28px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .side-panel.open{ transform:translateX(0); }
+
+  .side-panel a{
+    color:var(--cream);
+    text-decoration:none;
+    font-size:16px;
+    padding:16px 14px;
+    border-radius:10px;
+    transition:background .2s ease, padding-right .2s ease;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    opacity:0.92;
+  }
+  .side-panel a:hover{
+    background:rgba(247,243,232,0.08);
+    padding-right:20px;
+    opacity:1;
+  }
+  .side-panel .panel-title{
+    color:var(--gold-soft);
+    font-size:13px;
+    letter-spacing:1px;
+    margin-bottom:14px;
+    opacity:0.8;
+  }
+
+  /* ── مبدّل الوضع الليلي / النهاري ── */
+  .theme-toggle-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(247,243,232,0.07);
+    border-radius:14px;
+    padding:12px 14px;
+    margin-bottom:18px;
+  }
+  .theme-toggle-row .theme-icon{ font-size:16px; line-height:1; }
+  .theme-toggle-row .theme-label{
+    flex:1;
+    color:var(--cream);
+    font-size:13.5px;
+    opacity:0.9;
+  }
+  .theme-switch{
+    position:relative;
+    display:inline-block;
+    width:44px;
+    height:24px;
+    flex-shrink:0;
+  }
+  .theme-switch input{
+    opacity:0;
+    width:0;
+    height:0;
+  }
+  .theme-slider{
+    position:absolute;
+    inset:0;
+    background:rgba(247,243,232,0.22);
+    border-radius:24px;
+    cursor:pointer;
+    transition:background .25s ease;
+  }
+  .theme-slider::before{
+    content:'';
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:3px;
+    bottom:3px;
+    background:var(--cream);
+    border-radius:50%;
+    transition:transform .25s ease;
+  }
+  .theme-switch input:checked + .theme-slider{
+    background:var(--gold);
+  }
+  .theme-switch input:checked + .theme-slider::before{
+    transform:translateX(20px);
+  }
+
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(35,41,31,0.45);
+    z-index:30;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .overlay.show{ opacity:1; pointer-events:auto; }
+
+  .stage{
+    position:relative;
+    z-index:10;
+    width:100%;
+    max-width:420px;
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .logo-ring{
+    width:128px;
+    height:128px;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--olive), var(--olive-deep));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+      0 0 0 6px var(--bg),
+      0 0 0 8px var(--gold-soft),
+      0 18px 36px -10px rgba(47,59,42,0.45);
+    margin-bottom:22px;
+    animation:rise .7s ease both;
+    position:relative;
+    overflow:hidden;
+  }
+  .logo-ring img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+  }
+  .logo-ring .placeholder-mark{
+    color:var(--gold-soft);
+    font-size:42px;
+    font-weight:700;
+    font-family:Georgia,serif;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px) scale(.94); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .school-name{
+    font-size:22px;
+    font-weight:700;
+    color:var(--heading);
+    margin-bottom:4px;
+    animation:rise .7s ease .08s both;
+  }
+  .school-sub{
+    font-size:13px;
+    color:var(--olive-soft);
+    margin-bottom:30px;
+    letter-spacing:.5px;
+    animation:rise .7s ease .14s both;
+  }
+
+  .login-label{
+    font-size:14px;
+    color:var(--heading);
+    font-weight:600;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    animation:rise .7s ease .18s both;
+  }
+  .login-label::before, .login-label::after{
+    content:'';
+    width:28px;
+    height:1px;
+    background:var(--gold-soft);
+  }
+
+  .login-form{
+    width:100%;
+    animation:rise .7s ease .22s both;
+  }
+
+  .id-input{
+    width:100%;
+    padding:16px 18px;
+    border-radius:14px;
+    border:2px solid var(--gold-soft);
+    background:var(--surface);
+    font-size:17px;
+    text-align:center;
+    letter-spacing:1px;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s ease, box-shadow .2s ease, background .3s ease;
+    direction:ltr;
+  }
+  .id-input::placeholder{ font-size:14px; letter-spacing:0; color:#b6ad94; }
+  .id-input:focus{
+    border-color:var(--olive);
+    box-shadow:0 0 0 4px rgba(74,93,63,0.12);
+  }
+  .id-input.shake{ animation:shake .4s ease; border-color:var(--error); }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-8px); }
+    40%{ transform:translateX(8px); }
+    60%{ transform:translateX(-5px); }
+    80%{ transform:translateX(5px); }
+  }
+
+  .error-note{
+    color:var(--error);
+    font-size:13px;
+    margin-top:10px;
+    min-height:18px;
+    font-weight:600;
+    opacity:0;
+    transition:opacity .2s ease;
+  }
+  .error-note.show{ opacity:1; }
+
+  .continue-btn{
+    width:100%;
+    margin-top:16px;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:var(--olive-deep);
+    color:var(--cream);
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+    letter-spacing:.5px;
+  }
+  .continue-btn:hover{ background:var(--olive); }
+  .continue-btn:active{ transform:scale(.98); }
+  .continue-btn:disabled{ background:#aaa; cursor:not-allowed; }
+
+  .sub-links{
+    margin-top:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    font-size:12.5px;
+    animation:rise .7s ease .26s both;
+  }
+  .sub-links a{
+    color:var(--olive-soft);
+    text-decoration:none;
+    border-bottom:1px dashed var(--olive-soft);
+    padding-bottom:1px;
+    transition:color .2s ease;
+  }
+  .sub-links a:hover{ color:var(--heading); }
+  .sub-links .dot{
+    width:3px; height:3px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+
+  @media (max-width:480px){
+    .stage{ padding:22px; max-width:100%; }
+    .logo-ring{ width:104px; height:104px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-layer">
+    <div class="motif"></div>
+    <div class="motif"></div>
+    <div class="motif"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="bg-image-layer" id="bgImageLayer">
+    <div class="overlay-dim"></div>
+  </div>
+
+  <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+  <button class="menu-btn" id="menuBtn" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="overlay" id="overlay"></div>
+
+  <nav class="side-panel" id="sidePanel">
+    <div class="panel-title">القائمة الرئيسية</div>
+
+    <div class="theme-toggle-row">
+      <span class="theme-icon">☀️</span>
+      <span class="theme-label">الوضع الليلي</span>
+      <label class="theme-switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="theme-slider"></span>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+
+    <a href="index.html">🧑‍🎓 نظام دخول الطلبة</a>
+    <a href="teacher-login.html">🧑‍🏫 نظام دخول المعلمين</a>
+    <a href="about.html">🏫 لمحة عن المدرسة</a>
+    <a href="contact.html">✉️ إتصل بنا</a>
+  </nav>
+
+  <main class="stage">
+    <div class="logo-ring">
+      <img src="53EE.jpg" alt="شعار المدرسة">
+    </div>
+
+    <h1 class="school-name">مركز منابر الأقصى _نظام التعليم الالكتروني</h1>
+    <p class="school-sub">بوابة الطلاب والمعلمين</p>
+
+    <div class="login-label">تسجيل الدخول</div>
+
+    <form class="login-form" id="loginForm" onsubmit="return false;">
+      <input
+        type="text"
+        id="idInput"
+        class="id-input"
+        placeholder="رقم الهوية (9 أرقام) أو اسم المستخدم"
+        maxlength="30"
+      >
+      <input
+        type="password"
+        id="passwordInput"
+        class="id-input"
+        placeholder="كلمة السر"
+        maxlength="30"
+        style="margin-top:10px;"
+      >
+      <p class="error-note" id="errorNote">رقم الهوية غير موجود</p>
+      <button type="submit" class="continue-btn" id="continueBtn">تسجيل الدخول</button>
+    </form>
+
+    <div class="sub-links">
+      <a href="#" id="forgotPasswordLink" onclick="alert('عزيزي الطالب يرجى التواصل مع ادارة المركز لإتمام عملية إسترجاع بيانات الدخول'); return false;">نسيت كلمة السر؟</a>
+      <span class="dot"></span>
+      <a href="teacher-login.html">نظام دخول المعلمين</a>
+    </div>
+  </main>
+
+  <!-- Background image upload removed - static background -->
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB0xc27Y_eVcV96Lwm1yj6geQpOtn0dL5M",
+    authDomain: "israa-school.firebaseapp.com",
+    projectId: "israa-school",
+    storageBucket: "israa-school.firebasestorage.app",
+    messagingSenderId: "1059398708855",
+    appId: "1:1059398708855:web:605a2f3bb74f47e6b9a072"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  // ══════════════════════════════════════════════
+  //  أدوات أمان: تشفير كلمة السر + حماية من التخمين المتكرر
+  // ══════════════════════════════════════════════
+  function generateSalt(){
+    const arr = new Uint8Array(16);
+    crypto.getRandomValues(arr);
+    return Array.from(arr).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  async function hashPassword(password, salt){
+    const enc = new TextEncoder().encode(salt + ':' + password);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  async function verifyPassword(enteredPassword, record){
+    if(record.passwordHash && record.passwordSalt){
+      const computed = await hashPassword(enteredPassword, record.passwordSalt);
+      return { ok: computed === record.passwordHash, needsMigration:false };
+    }
+    if(typeof record.password === 'string'){
+      return { ok: record.password === enteredPassword, needsMigration:true };
+    }
+    return { ok:false, needsMigration:false };
+  }
+
+  const LOGIN_LOCK_MAX_ATTEMPTS = 5;
+  const LOGIN_LOCK_WINDOW_MS    = 5 * 60 * 1000;
+  function getLoginAttemptState(key){
+    try{ const raw = localStorage.getItem('loginAttempts_' + key); return raw ? JSON.parse(raw) : { count:0, lockUntil:0 }; }
+    catch(e){ return { count:0, lockUntil:0 }; }
+  }
+  function setLoginAttemptState(key, state){
+    try{ localStorage.setItem('loginAttempts_' + key, JSON.stringify(state)); }catch(e){}
+  }
+  function getLockRemainingSeconds(key){
+    const state = getLoginAttemptState(key);
+    if(state.lockUntil && Date.now() < state.lockUntil) return Math.ceil((state.lockUntil - Date.now()) / 1000);
+    return 0;
+  }
+  function recordFailedLogin(key){
+    const state = getLoginAttemptState(key);
+    state.count = (state.count || 0) + 1;
+    if(state.count >= LOGIN_LOCK_MAX_ATTEMPTS){ state.lockUntil = Date.now() + LOGIN_LOCK_WINDOW_MS; state.count = 0; }
+    setLoginAttemptState(key, state);
+  }
+  function clearLoginAttempts(key){ try{ localStorage.removeItem('loginAttempts_' + key); }catch(e){} }
+  function formatLockMessage(seconds){
+    const m = Math.floor(seconds / 60), s = seconds % 60;
+    return `تم إيقاف تسجيل الدخول مؤقتاً بسبب محاولات متكررة، حاول بعد ${m > 0 ? m + ' دقيقة و ' : ''}${s} ثانية`;
+  }
+
+  // ── القائمة الجانبية ──
+  const menuBtn   = document.getElementById('menuBtn');
+  const sidePanel = document.getElementById('sidePanel');
+  const overlay   = document.getElementById('overlay');
+
+  function toggleMenu(){
+    menuBtn.classList.toggle('open');
+    sidePanel.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // ── الوضع الليلي / النهاري ──
+  const themeToggle = document.getElementById('themeToggle');
+  function applyTheme(mode){
+    if(mode === 'dark'){
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.checked = true;
+    }else{
+      document.documentElement.removeAttribute('data-theme');
+      themeToggle.checked = false;
+    }
+  }
+  let savedTheme = 'light';
+  try{ savedTheme = localStorage.getItem('siteTheme') || 'light'; }catch(e){}
+  applyTheme(savedTheme);
+  themeToggle.addEventListener('change', () => {
+    const mode = themeToggle.checked ? 'dark' : 'light';
+    try{ localStorage.setItem('siteTheme', mode); }catch(e){}
+    applyTheme(mode);
+  });
+
+  // ── تسجيل الدخول ──
+  const idInput    = document.getElementById('idInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const errorNote  = document.getElementById('errorNote');
+  const continueBtn = document.getElementById('continueBtn');
+
+  function showError(msg){
+    errorNote.textContent = msg;
+    errorNote.classList.add('show');
+    idInput.classList.add('shake');
+    setTimeout(() => idInput.classList.remove('shake'), 400);
+  }
+
+  async function attemptLogin(){
+    const idValue = idInput.value.trim();
+    const passValue = passwordInput.value;
+    errorNote.classList.remove('show');
+    idInput.classList.remove('shake');
+
+    if(!idValue){
+      showError('يرجى إدخال رقم الهوية أو اسم المستخدم');
+      return;
+    }
+    if(!passValue){
+      showError('يرجى إدخال كلمة السر');
+      return;
+    }
+
+    // ── فحص القفل المؤقت بسبب محاولات متكررة ──
+    const lockKey = 'student_' + idValue;
+    const remaining = getLockRemainingSeconds(lockKey);
+    if(remaining > 0){
+      showError(formatLockMessage(remaining));
+      return;
+    }
+
+    continueBtn.disabled = true;
+    continueBtn.textContent = 'جاري التحقق...';
+
+    try{
+      let studentRef  = null;
+      let studentSnap = null;
+
+      if(/^[0-9]{9}$/.test(idValue)){
+        studentRef  = doc(db, 'students', idValue);
+        studentSnap = await getDoc(studentRef);
+      }
+
+      if(!studentSnap || !studentSnap.exists()){
+        const byUsername = await getDocs(query(collection(db,'students'), where('username','==',idValue)));
+        if(!byUsername.empty){
+          studentSnap = byUsername.docs[0];
+          studentRef  = studentSnap.ref;
+        }
+      }
+
+      if(studentSnap && studentSnap.exists()){
+        const student = studentSnap.data();
+        const result  = await verifyPassword(passValue, student);
+
+        if(result.ok){
+          clearLoginAttempts(lockKey);
+
+          if(student.status === 'pending'){
+            showError('حسابك بانتظار موافقة المسؤول، يرجى المحاولة لاحقاً');
+            continueBtn.disabled = false;
+            continueBtn.textContent = 'تسجيل الدخول';
+            return;
+          }
+          if(student.status === 'rejected'){
+            showError('تم رفض طلب تسجيلك، يرجى التواصل مع إدارة المدرسة');
+            continueBtn.disabled = false;
+            continueBtn.textContent = 'تسجيل الدخول';
+            return;
+          }
+          if(student.frozen === true){
+            showError('تم تجميد حسابك من قبل إدارة المدرسة، يرجى التواصل مع الإدارة لفك التجميد');
+            continueBtn.disabled = false;
+            continueBtn.textContent = 'تسجيل الدخول';
+            return;
+          }
+
+          // ترقية الحسابات القديمة (كلمة سر نص صريح) إلى كلمة سر مشفّرة تلقائياً
+          if(result.needsMigration){
+            try{
+              const salt = generateSalt();
+              const hash = await hashPassword(passValue, salt);
+              await updateDoc(studentRef, { passwordHash: hash, passwordSalt: salt, password: null });
+            }catch(e){ console.error('فشل ترقية كلمة السر:', e); }
+          }
+
+          localStorage.setItem('currentStudentId', studentRef.id);
+          localStorage.setItem('studentLoginTime', String(Date.now()));
+          window.location.href = 'student-page.html';
+        } else {
+          recordFailedLogin(lockKey);
+          showError('كلمة السر غير صحيحة');
+          continueBtn.disabled = false;
+          continueBtn.textContent = 'تسجيل الدخول';
+        }
+      }else{
+        showError('رقم الهوية أو اسم المستخدم غير موجود');
+        continueBtn.disabled = false;
+        continueBtn.textContent = 'تسجيل الدخول';
+      }
+    }catch(err){
+      console.error(err);
+      showError('خطأ في الاتصال، تحقق من الإنترنت');
+      continueBtn.disabled = false;
+      continueBtn.textContent = 'تسجيل الدخول';
+    }
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', attemptLogin);
+  continueBtn.addEventListener('click', attemptLogin);
+  idInput.addEventListener('keydown', e => { if(e.key === 'Enter') passwordInput.focus(); });
+  passwordInput.addEventListener('keydown', e => { if(e.key === 'Enter') attemptLogin(); });
+</script>
+
+<script>
+// ── Particles Animation ──
+(function(){
+  const canvas = document.getElementById('particlesCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const colors = ['rgba(201,151,63,', 'rgba(74,93,63,', 'rgba(107,125,90,', 'rgba(232,212,168,'];
+
+  class Particle {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + Math.random() * 100;
+      this.size = Math.random() * 4 + 1.5;
+      this.speedY = Math.random() * 0.6 + 0.25;
+      this.speedX = (Math.random() - 0.5) * 0.4;
+      this.opacity = 0;
+      this.maxOpacity = Math.random() * 0.18 + 0.04;
+      this.fadeIn = true;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.angle = Math.random() * Math.PI * 2;
+      this.angleSpeed = (Math.random() - 0.5) * 0.02;
+    }
+    update(){
+      this.y -= this.speedY;
+      this.x += this.speedX + Math.sin(this.angle) * 0.3;
+      this.angle += this.angleSpeed;
+      if(this.fadeIn){
+        this.opacity += 0.005;
+        if(this.opacity >= this.maxOpacity) this.fadeIn = false;
+      } else {
+        if(this.y < canvas.height * 0.3) this.opacity -= 0.003;
+      }
+      if(this.y < -20 || this.opacity <= 0) this.reset();
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color + this.opacity + ')';
+      ctx.fill();
+    }
+  }
+
+  // Sparkle / star particles
+  class Sparkle {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.opacity = 0;
+      this.maxOpacity = Math.random() * 0.25 + 0.05;
+      this.speed = Math.random() * 0.008 + 0.004;
+      this.dir = 1;
+      this.life = 0;
+      this.maxLife = Math.random() * 200 + 100;
+    }
+    update(){
+      this.life++;
+      if(this.life < this.maxLife / 2){
+        this.opacity += this.speed;
+        if(this.opacity > this.maxOpacity){ this.opacity = this.maxOpacity; }
+      } else {
+        this.opacity -= this.speed;
+      }
+      if(this.life >= this.maxLife){ this.reset(); }
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,151,63,${this.opacity})`;
+      ctx.fill();
+    }
+  }
+
+  const particles = Array.from({length: 45}, () => {
+    const p = new Particle();
+    p.y = Math.random() * canvas.height; // spread initially
+    return p;
+  });
+  const sparkles = Array.from({length: 60}, () => new Sparkle());
+
+  function animate(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    sparkles.forEach(s => { s.update(); s.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── Background Image Upload removed - static background ──
+
+</script>
+
+
+<script>
+// ══════════════════════════════════════════════
+//  خاصية إظهار/إخفاء كلمة السر لكل خانات كلمة السر في الصفحة
+// ══════════════════════════════════════════════
+(function(){
+  function wrapPasswordField(inp){
+    if(inp.dataset.pwToggled) return;
+    inp.dataset.pwToggled = '1';
+    var wrap = document.createElement('div');
+    wrap.style.position = 'relative';
+    inp.parentNode.insertBefore(wrap, inp);
+    wrap.appendChild(inp);
+    var existingPad = window.getComputedStyle(inp).paddingRight;
+    inp.style.paddingRight = 'calc(' + (existingPad || '16px') + ' + 30px)';
+    inp.style.boxSizing = 'border-box';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.setAttribute('aria-label','إظهار/إخفاء كلمة السر');
+    btn.textContent = '👁';
+    btn.style.cssText = 'position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:16px; padding:4px 4px; line-height:1; opacity:.6; z-index:2;';
+    btn.addEventListener('click', function(){
+      var showing = inp.type === 'text';
+      inp.type = showing ? 'password' : 'text';
+      btn.textContent = showing ? '👁' : '🙈';
+      btn.style.opacity = showing ? '.6' : '1';
+    });
+    wrap.appendChild(btn);
+  }
+  function initAll(){
+    document.querySelectorAll('input[type="password"]').forEach(wrapPasswordField);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initAll);
+  }else{
+    initAll();
+  }
+  // مراقبة أي خانات كلمة سر تُضاف لاحقاً للصفحة ديناميكياً (مع تأخير بسيط لتفادي التكرار الزائد)
+  var pwMoTimer = null;
+  var mo = new MutationObserver(function(){
+    clearTimeout(pwMoTimer);
+    pwMoTimer = setTimeout(initAll, 150);
+  });
+  mo.observe(document.documentElement, { childList:true, subtree:true });
+})();
+</script>
+
+</body>
+</html>
