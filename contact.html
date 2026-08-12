@@ -3,7 +3,7 @@
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,45 +19,46 @@
 </script>
 <style>
   :root{
-    --olive-deep:#2f3b2a;
-    --olive:#4a5d3f;
-    --olive-soft:#6b7d5a;
-    --cream:#f7f3e8;
+    --navy-deep:#0f172a;
+    --blue:#2563eb;
+    --blue-soft:#64748b;
+    --paper:#ffffff;
     --gold:#c9973f;
     --gold-soft:#e8d4a8;
-    --ink:#23291f;
+    --ink:#1e293b;
     --surface:#fff;
-    --surface-alt:#fbf9f3;
-    --border:#ece5d2;
-    --border-soft:#e3ddc9;
-    --muted:#aaa;
-    --heading:var(--olive-deep);
+    --surface-alt:#f3f7fb;
+    --border:#e2e8f0;
+    --border-soft:#dbe4ee;
+    --muted:#94a3b8;
+    --heading:var(--navy-deep);
   }
 
   html[data-theme="dark"]{
-    --cream:#161b13;
-    --ink:#eae5d6;
-    --olive-soft:#a9bd97;
-    --surface:#232a1e;
-    --surface-alt:#1c2117;
-    --border:#3a4432;
-    --border-soft:#3a4432;
-    --muted:#8a917d;
-    --heading:#e8d4a8;
+    --paper:#0b1220;
+    --ink:#e2e8f0;
+    --blue-soft:#7f8ea3;
+    --surface:#141e30;
+    --surface-alt:#111a24;
+    --border:#22303f;
+    --border-soft:#22303f;
+    --muted:#64748b;
+    --heading:#f1f5f9;
   }
   html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
   *{margin:0;padding:0;box-sizing:border-box;}
+  input,button,textarea,select{ font-family:inherit; font-weight:inherit; }
   html,body{
     min-height:100%;
-    font-family:'Almarai','Segoe UI',sans-serif;
-    background:var(--cream);
+    font-family:'Cairo','Segoe UI',sans-serif; font-weight:600;
+    background:var(--paper);
     color:var(--ink);
   }
   body{
     background:
       radial-gradient(circle at 10% 0%, rgba(201,151,63,0.08), transparent 40%),
-      radial-gradient(circle at 90% 100%, rgba(74,93,63,0.10), transparent 45%),
-      var(--cream);
+      radial-gradient(circle at 90% 100%, rgba(37,99,235,0.10), transparent 45%),
+      var(--paper);
     min-height:100vh;
     padding:60px 20px;
     display:flex;
@@ -68,9 +69,9 @@
     top:24px;
     right:24px;
     font-size:13px;
-    color:var(--olive-soft);
+    color:var(--blue-soft);
     text-decoration:none;
-    border-bottom:1px dashed var(--olive-soft);
+    border-bottom:1px dashed var(--blue-soft);
   }
   .back-link:hover{ color:var(--heading); }
 
@@ -78,9 +79,10 @@
     width:100%;
     max-width:460px;
     background:var(--surface);
-    border-radius:20px;
-    box-shadow:0 18px 40px -16px rgba(47,59,42,0.18);
-    padding:40px 34px;
+    border-radius:28px;
+    box-shadow:0 30px 60px -20px rgba(15,23,42,0.20), 0 10px 24px -12px rgba(15,23,42,0.10);
+    border:1px solid var(--border);
+    padding:44px 38px;
     animation:rise .5s ease both;
   }
   @keyframes rise{
@@ -91,22 +93,23 @@
   .badge{
     width:64px; height:64px;
     border-radius:50%;
-    background:linear-gradient(160deg, var(--olive), var(--olive-deep));
+    background:linear-gradient(160deg, var(--blue), var(--navy-deep));
     display:flex; align-items:center; justify-content:center;
-    color:var(--gold-soft);
-    font-size:28px;
-    margin:0 auto 18px;
+    color:#fff;
+    font-size:30px;
+    margin:0 auto 20px;
+    box-shadow:0 12px 26px -10px rgba(37,99,235,0.4);
   }
 
   h1{
-    font-size:21px;
+    font-size:23px;
     color:var(--heading);
     text-align:center;
     margin-bottom:6px;
   }
   .sub{
-    font-size:13px;
-    color:var(--olive-soft);
+    font-size:14px;
+    color:var(--blue-soft);
     text-align:center;
     margin-bottom:30px;
   }
@@ -133,8 +136,8 @@
     font-size:13.5px;
   }
   .contact-item .text .label{
-    color:var(--olive-soft);
-    font-size:11.5px;
+    color:var(--blue-soft);
+    font-size:12.5px;
     margin-bottom:2px;
   }
   .contact-item .text .value{

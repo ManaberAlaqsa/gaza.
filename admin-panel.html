@@ -3,7 +3,7 @@
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,102 +19,104 @@
 </script>
 <style>
   :root{
-    --olive-deep:#2f3b2a;
-    --olive:#4a5d3f;
-    --olive-soft:#6b7d5a;
-    --cream:#f7f3e8;
+    --navy-deep:#0f172a;
+    --blue:#2563eb;
+    --blue-soft:#64748b;
+    --paper:#ffffff;
     --gold:#c9973f;
     --gold-soft:#e8d4a8;
-    --ink:#23291f;
+    --ink:#1e293b;
     --error:#a8453a;
     --success:#3f7a52;
     --surface:#fff;
-    --surface-alt:#fbf9f3;
-    --border:#ece5d2;
-    --border-soft:#e3ddc9;
-    --muted:#aaa;
-    --heading:var(--olive-deep);
+    --surface-alt:#f3f7fb;
+    --border:#e2e8f0;
+    --border-soft:#dbe4ee;
+    --muted:#94a3b8;
+    --heading:var(--navy-deep);
   }
 
   html[data-theme="dark"]{
-    --cream:#161b13;
-    --ink:#eae5d6;
-    --olive-soft:#a9bd97;
-    --surface:#232a1e;
-    --surface-alt:#1c2117;
-    --border:#3a4432;
-    --border-soft:#3a4432;
-    --muted:#8a917d;
-    --heading:#e8d4a8;
+    --paper:#0b1220;
+    --ink:#e2e8f0;
+    --blue-soft:#7f8ea3;
+    --surface:#141e30;
+    --surface-alt:#111a24;
+    --border:#22303f;
+    --border-soft:#22303f;
+    --muted:#64748b;
+    --heading:#f1f5f9;
   }
   html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
   *{margin:0;padding:0;box-sizing:border-box;}
+  input,button,textarea,select{ font-family:inherit; font-weight:inherit; }
   html,body{
     min-height:100%;
-    font-family:'Almarai','Segoe UI',sans-serif;
-    background:var(--cream);
+    font-family:'Cairo','Segoe UI',sans-serif; font-weight:600;
+    background:var(--paper);
     color:var(--ink);
   }
   body{
     background:
       radial-gradient(circle at 10% 0%, rgba(201,151,63,0.08), transparent 40%),
-      radial-gradient(circle at 90% 100%, rgba(74,93,63,0.10), transparent 45%),
-      var(--cream);
+      radial-gradient(circle at 90% 100%, rgba(37,99,235,0.10), transparent 45%),
+      var(--paper);
     min-height:100vh;
     padding-bottom:60px;
   }
 
   .topbar{
-    background:var(--olive-deep);
-    color:var(--cream);
-    padding:16px 24px;
+    background:var(--navy-deep);
+    color:#fff;
+    padding:18px 26px;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    box-shadow:0 4px 20px -8px rgba(15,23,42,0.35);
   }
-  .topbar .brand{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .topbar .brand{ font-size:16px; font-weight:800; display:flex; align-items:center; gap:8px; }
   .logout-btn{
-    background:rgba(247,243,232,0.12);
+    background:rgba(255,255,255,0.14);
     border:none;
-    color:var(--cream);
-    font-size:13px;
-    padding:8px 16px;
-    border-radius:10px;
+    color:#fff;
+    font-size:13.5px;
+    font-weight:700;
+    padding:10px 18px;
+    border-radius:12px;
     cursor:pointer;
     transition:background .2s ease;
   }
-  .logout-btn:hover{ background:rgba(247,243,232,0.22); }
+  .logout-btn:hover{ background:rgba(255,255,255,0.24); }
 
   .wrap{ max-width:760px; margin:0 auto; padding:0 20px; }
 
-  .page-title{ margin:30px 0 6px; font-size:20px; color:var(--heading); }
-  .page-sub{ font-size:13px; color:var(--olive-soft); margin-bottom:28px; }
+  .page-title{ margin:30px 0 6px; font-size:23px; font-weight:800; color:var(--heading); }
+  .page-sub{ font-size:14px; color:var(--blue-soft); margin-bottom:28px; }
 
   /* ===== شريط التنقل (أيقونات الوحدات) ===== */
   .module-nav{
-    display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap;
-    background:var(--surface); border-radius:16px; padding:12px 14px;
-    box-shadow:0 4px 16px -8px rgba(47,59,42,0.14); border:1px solid var(--border);
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(88px, 1fr)); gap:8px; margin-bottom:26px;
+    background:var(--surface); border-radius:16px; padding:12px;
+    box-shadow:0 4px 16px -8px rgba(15,23,42,0.14); border:1px solid var(--border);
   }
   .mod-btn{
     position:relative;
-    flex:1; min-width:100px;
-    display:flex; flex-direction:column; align-items:center; gap:6px;
-    padding:14px 8px; border-radius:13px; border:1.5px solid var(--border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    padding:12px 6px; border-radius:12px; border:1.5px solid var(--border);
     background:var(--surface-alt); cursor:pointer; transition:all .2s; font-family:inherit;
-    color:var(--olive-soft); font-size:12.5px; font-weight:600;
+    color:var(--blue-soft); font-size:11.5px; font-weight:600; text-align:center; line-height:1.3;
   }
-  .mod-btn .mod-icon{ font-size:26px; }
-  .mod-btn:hover{ border-color:var(--olive); color:var(--heading); background:var(--surface-alt); }
+  .mod-btn .mod-icon{ font-size:21px; }
+  .mod-btn:hover{ border-color:var(--blue); color:var(--heading); background:var(--surface-alt); }
   .mod-btn.active{
-    background:var(--olive-deep); color:var(--cream);
-    border-color:var(--olive-deep);
-    box-shadow:0 4px 12px -4px rgba(47,59,42,0.35);
+    background:var(--navy-deep); color:var(--paper);
+    border-color:var(--navy-deep);
+    box-shadow:0 4px 12px -4px rgba(15,23,42,0.35);
   }
   .mod-badge{
-    position:absolute; top:6px; left:10px;
-    background:var(--error); color:#fff; font-size:10.5px; font-weight:700;
-    min-width:18px; height:18px; border-radius:9px; display:none;
+    position:absolute; top:5px; left:8px;
+    background:var(--error); color:#fff; font-size:10px; font-weight:700;
+    min-width:16px; height:16px; border-radius:8px; display:none;
     align-items:center; justify-content:center; padding:0 4px;
   }
   .mod-badge.show{ display:flex; }
@@ -143,15 +145,16 @@
 
   .card{
     background:var(--surface);
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 10px 26px -14px rgba(47,59,42,0.16);
+    border-radius:20px;
+    padding:26px;
+    box-shadow:0 14px 32px -16px rgba(15,23,42,0.18);
     margin-bottom:24px;
     border:1px solid var(--border);
   }
   .card h2{
-    font-size:16px;
-    color:var(--olive);
+    font-size:17px;
+    font-weight:800;
+    color:var(--blue);
     margin-bottom:18px;
     display:flex;
     align-items:center;
@@ -177,7 +180,7 @@
     display:block;
     font-size:12.5px;
     font-weight:600;
-    color:var(--olive);
+    color:var(--blue);
     margin-bottom:6px;
   }
   .field input{
@@ -191,8 +194,8 @@
     font-family:inherit;
   }
   .field input:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 3px rgba(74,93,63,0.1);
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(37,99,235,0.1);
     background:var(--surface);
   }
   .field input.invalid{ border-color:var(--error); }
@@ -208,11 +211,11 @@
     resize:vertical;
   }
   .field textarea:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 3px rgba(74,93,63,0.1);
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(37,99,235,0.1);
     background:var(--surface);
   }
-  .notice-saved-note{ font-size:11.5px; color:var(--olive-soft); margin-top:8px; line-height:1.6; }
+  .notice-saved-note{ font-size:11.5px; color:var(--blue-soft); margin-top:8px; line-height:1.6; }
   .notice-btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
   .notice-btn-row .add-btn{ flex:1 1 auto; }
   .delete-notice-btn{
@@ -235,7 +238,7 @@
     border-radius:12px; padding:16px 18px; margin-bottom:12px;
   }
   .req-row .req-name{ font-size:14.5px; font-weight:700; color:var(--heading); margin-bottom:4px; }
-  .req-row .req-id{ font-size:12px; color:var(--olive-soft); margin-bottom:10px; direction:ltr; text-align:right; }
+  .req-row .req-id{ font-size:12px; color:var(--blue-soft); margin-bottom:10px; direction:ltr; text-align:right; }
   .req-row .req-grade-tag{ display:inline-block; font-size:11px; font-weight:700; color:#3a4a7a; background:#eef2fb; padding:2px 9px; border-radius:20px; margin-bottom:10px; }
   .req-row .req-diff{ font-size:13px; color:#3d4a5e; line-height:1.9; background:#eef4ff; border:1px solid #c7d9f7; border-radius:9px; padding:10px 14px; margin-bottom:12px; }
   .req-row .req-diff b{ color:#1a3d6e; }
@@ -285,7 +288,7 @@
   }
   .fee-status-item .fsi-info{ min-width:0; }
   .fee-status-item .fsi-name{ font-size:13.5px; font-weight:700; color:var(--heading); }
-  .fee-status-item .fsi-id{ font-size:11.5px; color:var(--olive-soft); direction:ltr; text-align:right; }
+  .fee-status-item .fsi-id{ font-size:11.5px; color:var(--blue-soft); direction:ltr; text-align:right; }
   .fee-status-item .fsi-tag{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; flex-shrink:0; }
   .fee-status-item .fsi-tag.paid{ background:#e8f5e9; color:#2e7d32; }
   .fee-status-item .fsi-tag.unpaid{ background:#fce8e8; color:#a8453a; }
@@ -315,8 +318,8 @@
     cursor:pointer;
   }
   .field select:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 3px rgba(74,93,63,0.1);
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(37,99,235,0.1);
     background-color:var(--surface);
   }
   .field select.invalid{ border-color:var(--error); }
@@ -368,10 +371,10 @@
     transition:all .15s;
   }
   .checkbox-pill input{ display:none; }
-  .checkbox-pill:hover{ border-color:var(--olive); }
+  .checkbox-pill:hover{ border-color:var(--blue); }
   .checkbox-pill.checked{
-    background:var(--olive-deep);
-    border-color:var(--olive-deep);
+    background:var(--navy-deep);
+    border-color:var(--navy-deep);
     color:#fff;
   }
   .checkbox-pill.all-pill.checked{
@@ -379,85 +382,20 @@
     border-color:#8fae86;
     color:var(--heading);
   }
-  .field-hint{ font-size:11.5px; color:var(--olive-soft); margin-top:6px; }
-
-  .tag-input-row{
-    display:flex;
-    gap:8px;
-    margin-bottom:8px;
-  }
-  .tag-input-row input{
-    flex:1;
-    padding:12px 14px;
-    border-radius:10px;
-    border:1.5px solid var(--border-soft);
-    background:var(--surface-alt);
-    font-size:14.5px;
-    outline:none;
-    font-family:inherit;
-    color:var(--ink);
-  }
-  .tag-input-row input:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 3px rgba(74,93,63,0.1);
-    background-color:var(--surface);
-  }
-  .tag-add-btn{
-    padding:0 18px;
-    border:none;
-    border-radius:10px;
-    background:var(--olive);
-    color:#fff;
-    font-size:13.5px;
-    font-weight:700;
-    cursor:pointer;
-    white-space:nowrap;
-    transition:background .2s ease;
-  }
-  .tag-add-btn:hover{ background:var(--olive-deep); }
-  .tag-group{ min-height:48px; }
-  .tag-group.invalid{ border-color:var(--error); }
-  .tag-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:8px 10px 8px 14px;
-    border-radius:20px;
-    border:1.5px solid var(--olive-deep);
-    background:var(--olive-deep);
-    color:#fff;
-    font-size:12.5px;
-    font-weight:600;
-  }
-  .tag-remove{
-    border:none;
-    background:rgba(255,255,255,0.18);
-    color:#fff;
-    width:18px; height:18px;
-    border-radius:50%;
-    font-size:13px;
-    line-height:1;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-  }
-  .tag-remove:hover{ background:rgba(255,255,255,0.32); }
-  .tag-group .empty-note{ font-size:12.5px; color:var(--muted); padding:2px 2px; }
+  .field-hint{ font-size:11.5px; color:var(--blue-soft); margin-top:6px; }
 
   .add-btn{
     padding:12px 22px;
     border:none;
     border-radius:11px;
-    background:var(--olive-deep);
-    color:var(--cream);
+    background:var(--navy-deep);
+    color:var(--paper);
     font-size:14px;
     font-weight:700;
     cursor:pointer;
     transition:background .2s ease;
   }
-  .add-btn:hover{ background:var(--olive); }
+  .add-btn:hover{ background:var(--blue); }
   .add-btn:disabled{ background:var(--muted); cursor:not-allowed; }
 
   .msg{
@@ -483,7 +421,7 @@
     border:1px solid var(--border);
   }
   .teacher-item .info .name{ font-size:14.5px; font-weight:700; color:var(--heading); }
-  .teacher-item .info .user{ font-size:12.5px; color:var(--olive-soft); direction:ltr; display:inline-block; }
+  .teacher-item .info .user{ font-size:12.5px; color:var(--blue-soft); direction:ltr; display:inline-block; }
   .teacher-item .info .grade-badge{ margin-top:5px; }
 
   .delete-btn{
@@ -507,8 +445,8 @@
     width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid var(--border-soft);
     background:var(--surface-alt); font-size:14.5px; outline:none; font-family:inherit;
   }
-  .as-search-wrap input:focus{ border-color:var(--olive); box-shadow:0 0 0 3px rgba(74,93,63,0.1); background:var(--surface); }
-  .as-count{ font-size:12.5px; color:var(--olive-soft); margin-bottom:16px; }
+  .as-search-wrap input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,0.1); background:var(--surface); }
+  .as-count{ font-size:12.5px; color:var(--blue-soft); margin-bottom:16px; }
   .grade-group{ margin-bottom:22px; }
   .grade-group:last-child{ margin-bottom:0; }
   .grade-group-title{
@@ -517,7 +455,7 @@
     padding-bottom:8px; border-bottom:1.5px dashed var(--border-soft);
   }
   .grade-group-title .cnt{
-    font-size:11px; font-weight:700; color:var(--olive-soft);
+    font-size:11px; font-weight:700; color:var(--blue-soft);
     background:#eef2e8; padding:2px 9px; border-radius:20px;
   }
   .student-item{
@@ -526,20 +464,26 @@
     border:1px solid var(--border); margin-bottom:8px;
   }
   .student-item .info .name{ font-size:14px; font-weight:700; color:var(--heading); }
-  .student-item .info .meta{ font-size:12px; color:var(--olive-soft); margin-top:3px; display:flex; gap:12px; flex-wrap:wrap; }
+  .student-item .info .meta{ font-size:12px; color:var(--blue-soft); margin-top:3px; display:flex; gap:12px; flex-wrap:wrap; }
   .student-item .info .meta span{ direction:ltr; display:inline-block; }
   .pending-tag{
     display:inline-block; font-size:10.5px; font-weight:700; color:#a06a10;
     background:#fff4e0; border:1px solid #e8d4a8; padding:2px 8px; border-radius:20px;
     margin-inline-start:6px;
   }
+  .specialneeds-tag{
+    display:inline-block; font-size:10.5px; font-weight:700; color:#8a3ba0;
+    background:#f3e8fb; border:1px solid #dcc3ee; padding:2px 8px; border-radius:20px;
+    margin-inline-start:6px; cursor:pointer;
+  }
+  .specialneeds-tag:hover{ background:#e9d4f5; }
 
   /* أزرار التحكم في المعلم */
   .item-actions{ display:flex; gap:8px; align-items:center; flex-shrink:0; }
   .edit-btn{
     background:none;
-    border:1.5px solid var(--olive);
-    color:var(--olive);
+    border:1.5px solid var(--blue);
+    color:var(--blue);
     font-size:12.5px;
     padding:7px 14px;
     border-radius:8px;
@@ -547,7 +491,7 @@
     transition:background .2s ease;
     font-weight:600;
   }
-  .edit-btn:hover{ background:rgba(74,93,63,0.08); }
+  .edit-btn:hover{ background:rgba(37,99,235,0.08); }
 
   /* ===== سلة المحذوفات ===== */
   .trash-group{ margin-bottom:22px; }
@@ -563,13 +507,13 @@
     border:1px solid var(--border); margin-bottom:8px; gap:10px; flex-wrap:wrap;
   }
   .trash-item .info .name{ font-size:14px; font-weight:700; color:var(--heading); }
-  .trash-item .info .meta{ font-size:12px; color:var(--olive-soft); margin-top:3px; display:flex; gap:12px; flex-wrap:wrap; }
+  .trash-item .info .meta{ font-size:12px; color:var(--blue-soft); margin-top:3px; display:flex; gap:12px; flex-wrap:wrap; }
   .trash-item .info .meta span{ direction:ltr; display:inline-block; }
   .trash-item .info .deleted-at{ font-size:11px; color:#b0a98e; margin-top:4px; }
   .restore-btn{
     background:none;
-    border:1.5px solid var(--olive);
-    color:var(--olive);
+    border:1.5px solid var(--blue);
+    color:var(--blue);
     font-size:12.5px;
     padding:7px 14px;
     border-radius:8px;
@@ -578,7 +522,7 @@
     font-weight:600;
     white-space:nowrap;
   }
-  .restore-btn:hover{ background:rgba(74,93,63,0.08); }
+  .restore-btn:hover{ background:rgba(37,99,235,0.08); }
   .perm-delete-btn{
     background:var(--error);
     border:1.5px solid var(--error);
@@ -610,7 +554,7 @@
     padding:30px 28px;
     width:100%;
     max-width:420px;
-    box-shadow:0 20px 50px -16px rgba(47,59,42,0.35);
+    box-shadow:0 20px 50px -16px rgba(15,23,42,0.35);
     animation:rise .3s ease both;
   }
   @keyframes rise{
@@ -627,7 +571,7 @@
   }
   .modal-box .modal-sub{
     font-size:12.5px;
-    color:var(--olive-soft);
+    color:var(--blue-soft);
     margin-bottom:22px;
     line-height:1.6;
   }
@@ -636,7 +580,7 @@
     display:block;
     font-size:12.5px;
     font-weight:600;
-    color:var(--olive);
+    color:var(--blue);
     margin-bottom:6px;
   }
   .modal-field input{
@@ -653,8 +597,8 @@
     transition:border-color .2s ease, box-shadow .2s ease;
   }
   .modal-field input:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 3px rgba(74,93,63,0.1);
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(37,99,235,0.1);
     background:var(--surface);
   }
   .modal-field input.invalid{ border-color:var(--error); }
@@ -665,21 +609,21 @@
     padding:13px;
     border:none;
     border-radius:11px;
-    background:var(--olive-deep);
-    color:var(--cream);
+    background:var(--navy-deep);
+    color:var(--paper);
     font-size:14px;
     font-weight:700;
     cursor:pointer;
     transition:background .2s ease;
   }
-  .modal-save-btn:hover{ background:var(--olive); }
+  .modal-save-btn:hover{ background:var(--blue); }
   .modal-save-btn:disabled{ background:var(--muted); cursor:not-allowed; }
   .modal-cancel-btn{
     padding:13px 20px;
     border:1.5px solid var(--border-soft);
     border-radius:11px;
     background:transparent;
-    color:var(--olive-soft);
+    color:var(--blue-soft);
     font-size:14px;
     font-weight:600;
     cursor:pointer;
@@ -721,7 +665,7 @@
   .cmp-t-row.replied{ border-right-color:var(--success); }
   .cmp-t-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
   .cmp-t-name{ font-size:14.5px; font-weight:700; color:var(--heading); }
-  .cmp-t-meta{ font-size:12px; color:var(--olive-soft); display:flex; gap:10px; flex-wrap:wrap; margin-top:3px; }
+  .cmp-t-meta{ font-size:12px; color:var(--blue-soft); display:flex; gap:10px; flex-wrap:wrap; margin-top:3px; }
   .cmp-t-status{ font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:20px; background:var(--gold-soft); color:#a06a10; white-space:nowrap; }
   .cmp-t-status.replied{ background:#e6f4e6; color:var(--success); }
   .cmp-t-msg{ font-size:13.5px; color:var(--ink); line-height:1.8; white-space:pre-wrap; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 14px; margin:8px 0 10px; }
@@ -730,9 +674,9 @@
     width:100%; padding:11px 13px; border-radius:9px; border:1.5px solid var(--border-soft);
     background:var(--surface); font-size:13.5px; font-family:inherit; outline:none; resize:vertical; min-height:70px;
   }
-  .cmp-t-reply-box textarea:focus{ border-color:var(--olive); box-shadow:0 0 0 3px rgba(74,93,63,0.1); }
-  .cmp-t-reply-btn{ margin-top:8px; padding:9px 18px; border:none; border-radius:9px; background:var(--olive-deep); color:var(--cream); font-size:12.5px; font-weight:700; cursor:pointer; transition:background .2s; }
-  .cmp-t-reply-btn:hover{ background:var(--olive); }
+  .cmp-t-reply-box textarea:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
+  .cmp-t-reply-btn{ margin-top:8px; padding:9px 18px; border:none; border-radius:9px; background:var(--navy-deep); color:var(--paper); font-size:12.5px; font-weight:700; cursor:pointer; transition:background .2s; }
+  .cmp-t-reply-btn:hover{ background:var(--blue); }
   .cmp-t-reply-btn:disabled{ background:var(--muted); cursor:not-allowed; }
   .cmp-t-msgline{ font-size:12px; font-weight:600; margin-top:6px; min-height:14px; }
   .cmp-t-msgline.err{ color:var(--error); } .cmp-t-msgline.ok{ color:var(--success); }
@@ -780,6 +724,9 @@
       </button>
       <button class="mod-btn" data-mod="content">
         <span class="mod-icon">🗂️</span>الإعلانات والواجبات
+      </button>
+      <button class="mod-btn" data-mod="contactinfo">
+        <span class="mod-icon">☎️</span>بيانات التواصل
       </button>
       <button class="mod-btn" data-mod="account">
         <span class="mod-icon">🔐</span>حسابي
@@ -839,12 +786,19 @@
             </div>
             <div class="field full">
               <label>المواد الدراسية المخصصة للمعلم</label>
-              <div class="tag-input-row">
-                <input type="text" id="teacherSubjectInput" placeholder="اكتب اسم المادة، مثال: اللغة العربية">
-                <button type="button" class="tag-add-btn" id="teacherSubjectAddBtn">+ إضافة</button>
+              <div class="checkbox-group" id="teacherSubjectGroup">
+                <label class="checkbox-pill" data-value="اللغة العربية"><input type="checkbox" value="اللغة العربية"> اللغة العربية</label>
+                <label class="checkbox-pill" data-value="الرياضيات"><input type="checkbox" value="الرياضيات"> الرياضيات</label>
+                <label class="checkbox-pill" data-value="العلوم"><input type="checkbox" value="العلوم"> العلوم</label>
+                <label class="checkbox-pill" data-value="اللغة الإنجليزية"><input type="checkbox" value="اللغة الإنجليزية"> اللغة الإنجليزية</label>
+                <label class="checkbox-pill" data-value="التربية الإسلامية"><input type="checkbox" value="التربية الإسلامية"> التربية الإسلامية</label>
+                <label class="checkbox-pill" data-value="القرآن الكريم"><input type="checkbox" value="القرآن الكريم"> القرآن الكريم</label>
+                <label class="checkbox-pill" data-value="الدراسات الاجتماعية"><input type="checkbox" value="الدراسات الاجتماعية"> الدراسات الاجتماعية</label>
+                <label class="checkbox-pill" data-value="الحاسوب"><input type="checkbox" value="الحاسوب"> الحاسوب</label>
+                <label class="checkbox-pill" data-value="التربية الفنية"><input type="checkbox" value="التربية الفنية"> التربية الفنية</label>
+                <label class="checkbox-pill" data-value="التربية الرياضية"><input type="checkbox" value="التربية الرياضية"> التربية الرياضية</label>
               </div>
-              <div class="checkbox-group tag-group" id="teacherSubjectGroup"></div>
-              <p class="field-hint">اكتب اسم المادة كما تريد ظهورها للمعلم والطالب، ثم اضغط "إضافة" أو Enter. يمكن إضافة أكثر من مادة (افصل بينها بفاصلة).</p>
+              <p class="field-hint">يمكن اختيار أكثر من مادة في نفس الوقت</p>
             </div>
           </div>
           <button type="submit" class="add-btn" id="addBtn">إضافة المعلم</button>
@@ -941,6 +895,17 @@
             <div class="field full">
               <label>كلمة المرور</label>
               <input type="text" id="regStudentPassword" placeholder="كلمة مرور للطالب" style="direction:ltr; text-align:left;">
+            </div>
+            <div class="field full">
+              <label>هل الطالب من ذوي الحالات الخاصة؟</label>
+              <select id="regStudentSpecialNeeds">
+                <option value="no">لا</option>
+                <option value="yes">نعم</option>
+              </select>
+            </div>
+            <div class="field full" id="regSpecialNeedsDetailsWrap" style="display:none;">
+              <label>شرح الحالة</label>
+              <textarea id="regStudentSpecialNeedsDetails" rows="3" placeholder="يرجى كتابة تفاصيل الحالة الخاصة للطالب هنا" style="width:100%; font-family:inherit; font-size:14px; padding:10px; border-radius:10px; border:1px solid var(--border); resize:vertical;"></textarea>
             </div>
           </div>
           <button type="submit" class="add-btn" id="addStudentBtn">تسجيل الطالب</button>
@@ -1099,6 +1064,30 @@
     </div>
 
     <!-- ══ لوحة: حسابي الشخصي (المسؤول) ══ -->
+    <!-- ══ لوحة: بيانات التواصل ══ -->
+    <div class="mod-panel" id="panel-contactinfo">
+      <div class="card">
+        <h2>☎️ تعديل بيانات إتصل بنا</h2>
+        <p class="field-hint" style="margin-bottom:14px;">من هنا تقدر تعدّل بيانات صفحة "إتصل بنا" (contact.html) التي تظهر لكل زوّار الموقع: رقم الهاتف، رقم الواتساب، والموقع.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label>رقم الهاتف الأساسي</label>
+            <input type="text" id="contactPhone" placeholder="مثال: 0598377899" style="direction:ltr; text-align:left;">
+          </div>
+          <div class="field">
+            <label>رقم الواتساب</label>
+            <input type="text" id="contactWhatsapp" placeholder="مثال: +972598377899" style="direction:ltr; text-align:left;">
+          </div>
+          <div class="field full">
+            <label>الموقع</label>
+            <input type="text" id="contactLocation" placeholder="مثال: غزة - المخابرات - بجوار صالة قصر الورود">
+          </div>
+        </div>
+        <button class="add-btn" id="saveContactInfoBtn">💾 حفظ بيانات التواصل</button>
+        <p class="msg" id="contactInfoMsg"></p>
+      </div>
+    </div>
+
     <div class="mod-panel" id="panel-account">
       <div class="card">
         <h2>🔐 حسابي الشخصي</h2>
@@ -1261,6 +1250,7 @@
     });
   }
   wireCheckboxGroup(gradeGroup, { exclusiveValue: 'all' });
+  wireCheckboxGroup(subjectGroup);
 
   function getCheckedValues(groupEl){
     return Array.from(groupEl.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
@@ -1281,48 +1271,6 @@
     div.textContent = str || '';
     return div.innerHTML;
   }
-
-  // ── حقل إدخال حر لأسماء المواد (بدل قائمة ثابتة) ──
-  function addTagPill(containerEl, value){
-    value = (value || '').trim();
-    if(!value) return;
-    const exists = Array.from(containerEl.querySelectorAll('.tag-pill')).some(p => p.dataset.value === value);
-    if(exists) return;
-    const pill = document.createElement('span');
-    pill.className = 'tag-pill';
-    pill.dataset.value = value;
-    pill.innerHTML = `${escapeHtml(value)} <button type="button" class="tag-remove">×</button>`;
-    pill.querySelector('.tag-remove').addEventListener('click', () => {
-      pill.remove();
-      containerEl.classList.remove('invalid');
-    });
-    containerEl.appendChild(pill);
-    containerEl.classList.remove('invalid');
-  }
-
-  function getTagValues(containerEl){
-    return Array.from(containerEl.querySelectorAll('.tag-pill')).map(p => p.dataset.value);
-  }
-
-  function setTagValues(containerEl, values){
-    containerEl.innerHTML = '';
-    (values || []).forEach(v => addTagPill(containerEl, v));
-  }
-
-  function wireTagInput(inputEl, addBtnEl, containerEl){
-    function commit(){
-      const raw = inputEl.value;
-      if(!raw.trim()) return;
-      raw.split(/[,،]/).forEach(v => addTagPill(containerEl, v));
-      inputEl.value = '';
-    }
-    addBtnEl.addEventListener('click', commit);
-    inputEl.addEventListener('keydown', e => {
-      if(e.key === 'Enter'){ e.preventDefault(); commit(); }
-    });
-  }
-
-  wireTagInput(document.getElementById('teacherSubjectInput'), document.getElementById('teacherSubjectAddBtn'), subjectGroup);
 
   const GRADE_LABELS = {
     '1': 'الصف الأول',
@@ -1432,7 +1380,7 @@
     row.className = 'student-item';
     row.innerHTML = `
       <div class="info">
-        <div class="name">👤 ${escapeHtml(s.fullName || '—')}${s.status === 'pending' ? '<span class="pending-tag">⏳ بانتظار الموافقة</span>' : ''}</div>
+        <div class="name">👤 ${escapeHtml(s.fullName || '—')}${s.status === 'pending' ? '<span class="pending-tag">⏳ بانتظار الموافقة</span>' : ''}${s.specialNeeds ? '<span class="specialneeds-tag">🔶 طالب حالات خاصة</span>' : ''}</div>
         <div class="meta">
           <span>🪪 ${escapeHtml(s.natId)}</span>
           <span>📱 ${escapeHtml(s.phone || '—')}</span>
@@ -1446,7 +1394,21 @@
     `;
     row.querySelector('.edit-btn').addEventListener('click', () => openEditStudentModal(s));
     row.querySelector('.delete-btn').addEventListener('click', () => moveStudentToTrash(s));
+    const specialTag = row.querySelector('.specialneeds-tag');
+    if(specialTag){
+      specialTag.addEventListener('click', (e) => { e.stopPropagation(); openSpecialNeedsModal(s); });
+    }
     return row;
+  }
+
+  function openSpecialNeedsModal(s){
+    document.getElementById('specialNeedsModalName').textContent = s.fullName || s.natId;
+    document.getElementById('specialNeedsModalDetails').textContent = s.specialNeedsDetails || 'لم يتم إدخال شرح للحالة';
+    document.getElementById('specialNeedsModal').classList.add('show');
+  }
+
+  function closeSpecialNeedsModal(){
+    document.getElementById('specialNeedsModal').classList.remove('show');
   }
 
   async function moveStudentToTrash(s){
@@ -1561,7 +1523,7 @@
     const phone    = phoneInput.value.trim();
     const password = passwordInput.value;
     const grades   = getCheckedValues(gradeGroup);
-    const subjects = getTagValues(subjectGroup);
+    const subjects = getCheckedValues(subjectGroup);
 
     if(!name)     { nameInput.classList.add('invalid');     showMsg('يرجى إدخال اسم المعلم', 'error');          return; }
     if(!NAME_AR_PATTERN.test(name)){
@@ -1648,7 +1610,7 @@
       phoneInput.value = '';
       passwordInput.value = '';
       setCheckedValues(gradeGroup, []);
-      setTagValues(subjectGroup, []);
+      setCheckedValues(subjectGroup, []);
       showMsg('تمت إضافة المعلم بنجاح ✓', 'success');
       renderTeachers();
     }catch(err){
@@ -1730,8 +1692,20 @@
   const regBirthDateInput = document.getElementById('regStudentBirthDate');
   const regEnrollYearInput= document.getElementById('regStudentEnrollYear');
   const regPasswordInput  = document.getElementById('regStudentPassword');
+  const regSpecialNeedsInput        = document.getElementById('regStudentSpecialNeeds');
+  const regSpecialNeedsDetailsWrap  = document.getElementById('regSpecialNeedsDetailsWrap');
+  const regSpecialNeedsDetailsInput = document.getElementById('regStudentSpecialNeedsDetails');
   const addStudentBtn     = document.getElementById('addStudentBtn');
   const addStudentMsg     = document.getElementById('addStudentMsg');
+
+  regSpecialNeedsInput.addEventListener('change', () => {
+    if(regSpecialNeedsInput.value === 'yes'){
+      regSpecialNeedsDetailsWrap.style.display = '';
+    } else {
+      regSpecialNeedsDetailsWrap.style.display = 'none';
+      regSpecialNeedsDetailsInput.value = '';
+    }
+  });
 
   regNameInput.addEventListener('input', () => {
     regNameInput.value = regNameInput.value.replace(/[^\u0600-\u06FF\s.]/g, '');
@@ -1758,7 +1732,7 @@
   }
 
   async function handleAddStudent(){
-    [regNameInput, regGradeInput, regIdInput, regPhoneInput, regBirthDateInput, regEnrollYearInput, regPasswordInput].forEach(el => el.classList.remove('invalid'));
+    [regNameInput, regGradeInput, regIdInput, regPhoneInput, regBirthDateInput, regEnrollYearInput, regPasswordInput, regSpecialNeedsDetailsInput].forEach(el => el.classList.remove('invalid'));
 
     const fullName  = regNameInput.value.trim();
     const grade     = regGradeInput.value;
@@ -1768,6 +1742,8 @@
     const birthDate = regBirthDateInput.value;
     const enrollYear= regEnrollYearInput.value.trim();
     const password  = regPasswordInput.value;
+    const specialNeeds        = regSpecialNeedsInput.value === 'yes';
+    const specialNeedsDetails = regSpecialNeedsDetailsInput.value.trim();
 
     if(!fullName){ regNameInput.classList.add('invalid'); showAddStudentMsg('يرجى إدخال اسم الطالب', 'error'); return; }
     if(!NAME_AR_PATTERN.test(fullName)){
@@ -1799,6 +1775,11 @@
     if(!PASSWORD_EN_PATTERN.test(password)){
       regPasswordInput.classList.add('invalid');
       showAddStudentMsg('كلمة المرور يجب أن تكون بالإنجليزية فقط (بدون حروف عربية أو مسافات)', 'error');
+      return;
+    }
+    if(specialNeeds && !specialNeedsDetails){
+      regSpecialNeedsDetailsInput.classList.add('invalid');
+      showAddStudentMsg('يرجى كتابة شرح الحالة الخاصة بالطالب', 'error');
       return;
     }
 
@@ -1846,6 +1827,8 @@
         enrollmentYear: enrollYear,
         passwordHash, passwordSalt,
         status: 'active',
+        specialNeeds,
+        specialNeedsDetails: specialNeeds ? specialNeedsDetails : null,
         createdAt: new Date().toISOString(),
       });
 
@@ -1857,6 +1840,9 @@
       regBirthDateInput.value = '';
       regEnrollYearInput.value = '';
       regPasswordInput.value = '';
+      regSpecialNeedsInput.value = 'no';
+      regSpecialNeedsDetailsWrap.style.display = 'none';
+      regSpecialNeedsDetailsInput.value = '';
       showAddStudentMsg('تم تسجيل الطالب بنجاح ✓', 'success');
       if(typeof loadAllStudents === 'function') loadAllStudents();
     }catch(err){
@@ -1903,7 +1889,7 @@
   const editPwStrength = document.getElementById('editPwStrength');
 
   wireCheckboxGroup(editGradeGroup, { exclusiveValue: 'all' });
-  wireTagInput(document.getElementById('editSubjectInput'), document.getElementById('editSubjectAddBtn'), editSubjectGroup);
+  wireCheckboxGroup(editSubjectGroup);
 
   function openEditModal(teacher){
     editingTeacher = teacher;
@@ -1915,7 +1901,7 @@
     editGradeGroup.classList.remove('invalid');
     editSubjectGroup.classList.remove('invalid');
     setCheckedValues(editGradeGroup, getTeacherGrades(teacher));
-    setTagValues(editSubjectGroup, getTeacherSubjects(teacher));
+    setCheckedValues(editSubjectGroup, getTeacherSubjects(teacher));
     editMsg.className   = 'modal-msg';
     editMsg.textContent = '';
     document.getElementById('editModalSub').textContent =
@@ -1956,7 +1942,7 @@
     const newPhone    = editPhone.value.trim();
     const newPassword = editPassword.value;
     const newGrades   = getCheckedValues(editGradeGroup);
-    const newSubjects = getTagValues(editSubjectGroup);
+    const newSubjects = getCheckedValues(editSubjectGroup);
 
     editUsername.classList.remove('invalid');
     editPhone.classList.remove('invalid');
@@ -2154,6 +2140,9 @@
   const editStudentBirthDate  = document.getElementById('editStudentBirthDate');
   const editStudentEnrollYear = document.getElementById('editStudentEnrollYear');
   const editStudentPassword   = document.getElementById('editStudentPassword');
+  const editStudentSpecialNeeds        = document.getElementById('editStudentSpecialNeeds');
+  const editSpecialNeedsDetailsWrap    = document.getElementById('editSpecialNeedsDetailsWrap');
+  const editStudentSpecialNeedsDetails = document.getElementById('editStudentSpecialNeedsDetails');
   const editStudentSaveBtn    = document.getElementById('editStudentSaveBtn');
   const editStudentCancelBtn  = document.getElementById('editStudentCancelBtn');
   const editStudentMsg        = document.getElementById('editStudentMsg');
@@ -2190,6 +2179,15 @@
     else{ editStudentPwStrength.className='pw-strength strong'; editStudentPwStrength.textContent='✓ كلمة سر قوية'; }
   });
 
+  editStudentSpecialNeeds.addEventListener('change', () => {
+    if(editStudentSpecialNeeds.value === 'yes'){
+      editSpecialNeedsDetailsWrap.style.display = '';
+    } else {
+      editSpecialNeedsDetailsWrap.style.display = 'none';
+      editStudentSpecialNeedsDetails.value = '';
+    }
+  });
+
   function openEditStudentModal(s){
     editingStudent = s;
     [editStudentName, editStudentGrade, editStudentNatId, editStudentUsername, editStudentPhone, editStudentBirthDate, editStudentEnrollYear, editStudentPassword]
@@ -2203,6 +2201,9 @@
     editStudentEnrollYear.value = s.enrollmentYear || '';
     editStudentPassword.value   = '';
     editStudentPwStrength.style.display = 'none';
+    editStudentSpecialNeeds.value = s.specialNeeds ? 'yes' : 'no';
+    editStudentSpecialNeedsDetails.value = s.specialNeedsDetails || '';
+    editSpecialNeedsDetailsWrap.style.display = s.specialNeeds ? '' : 'none';
     editStudentMsg.className = 'modal-msg';
     editStudentMsg.textContent = '';
     document.getElementById('editStudentModalSub').textContent = 'تعديل بيانات: ' + (s.fullName || s.natId);
@@ -2218,6 +2219,9 @@
   editStudentCancelBtn.addEventListener('click', closeEditStudentModal);
   editStudentModal.addEventListener('click', e => { if(e.target === editStudentModal) closeEditStudentModal(); });
 
+  document.getElementById('specialNeedsModalCloseBtn').addEventListener('click', closeSpecialNeedsModal);
+  document.getElementById('specialNeedsModal').addEventListener('click', e => { if(e.target === document.getElementById('specialNeedsModal')) closeSpecialNeedsModal(); });
+
   async function handleSaveStudentEdit(){
     if(!editingStudent) return;
 
@@ -2229,8 +2233,10 @@
     const newBirthDate   = editStudentBirthDate.value;
     const newEnrollYear  = editStudentEnrollYear.value.trim();
     const newPassword    = editStudentPassword.value;
+    const newSpecialNeeds        = editStudentSpecialNeeds.value === 'yes';
+    const newSpecialNeedsDetails = editStudentSpecialNeedsDetails.value.trim();
 
-    [editStudentName, editStudentGrade, editStudentNatId, editStudentUsername, editStudentPhone, editStudentBirthDate, editStudentEnrollYear, editStudentPassword]
+    [editStudentName, editStudentGrade, editStudentNatId, editStudentUsername, editStudentPhone, editStudentBirthDate, editStudentEnrollYear, editStudentPassword, editStudentSpecialNeedsDetails]
       .forEach(el => el.classList.remove('invalid'));
 
     if(!newName){
@@ -2284,6 +2290,12 @@
     if(newPassword && !PASSWORD_EN_PATTERN.test(newPassword)){
       editStudentPassword.classList.add('invalid');
       editStudentMsg.textContent = 'كلمة المرور يجب أن تكون بالإنجليزية فقط (بدون حروف عربية أو مسافات)';
+      editStudentMsg.className = 'modal-msg show error';
+      return;
+    }
+    if(newSpecialNeeds && !newSpecialNeedsDetails){
+      editStudentSpecialNeedsDetails.classList.add('invalid');
+      editStudentMsg.textContent = 'يرجى كتابة شرح الحالة الخاصة بالطالب';
       editStudentMsg.className = 'modal-msg show error';
       return;
     }
@@ -2344,6 +2356,8 @@
         birthDate: newBirthDate,
         enrollmentYear: newEnrollYear,
         ...passwordFields,
+        specialNeeds: newSpecialNeeds,
+        specialNeedsDetails: newSpecialNeeds ? newSpecialNeedsDetails : null,
         updatedAt: new Date().toISOString(),
       };
       delete updatedData.natId;
@@ -3029,6 +3043,57 @@
   saveAdminAccountBtn.addEventListener('click', handleSaveAdminAccount);
 
   // ══════════════════════════════════
+  //  بيانات التواصل (صفحة إتصل بنا)
+  // ══════════════════════════════════
+  const contactPhoneEl    = document.getElementById('contactPhone');
+  const contactWhatsappEl = document.getElementById('contactWhatsapp');
+  const contactLocationEl = document.getElementById('contactLocation');
+  const contactInfoMsgEl  = document.getElementById('contactInfoMsg');
+  const saveContactInfoBtn = document.getElementById('saveContactInfoBtn');
+
+  async function loadContactInfo(){
+    try{
+      const snap = await getDoc(doc(db,'settings','contactInfo'));
+      if(snap.exists()){
+        const d = snap.data();
+        contactPhoneEl.value    = d.phone || '';
+        contactWhatsappEl.value = d.whatsapp || '';
+        contactLocationEl.value = d.location || '';
+      }
+    }catch(e){ console.error(e); }
+  }
+  loadContactInfo();
+
+  function showContactInfoMsg(text, type){
+    contactInfoMsgEl.textContent = text;
+    contactInfoMsgEl.className = 'msg show ' + type;
+  }
+
+  async function handleSaveContactInfo(){
+    showContactInfoMsg('', '');
+    const phone    = contactPhoneEl.value.trim();
+    const whatsapp = contactWhatsappEl.value.trim();
+    const location = contactLocationEl.value.trim();
+
+    if(!phone || !whatsapp || !location){
+      showContactInfoMsg('يرجى تعبئة جميع الحقول', 'error');
+      return;
+    }
+
+    saveContactInfoBtn.disabled = true;
+    showContactInfoMsg('جاري الحفظ...', '');
+    try{
+      await setDoc(doc(db,'settings','contactInfo'), { phone, whatsapp, location });
+      showContactInfoMsg('تم حفظ بيانات التواصل بنجاح ✓ ستظهر التحديثات مباشرة في صفحة إتصل بنا', 'success');
+    }catch(e){
+      console.error(e);
+      showContactInfoMsg('خطأ في حفظ البيانات، تحقق من الإنترنت', 'error');
+    }
+    saveContactInfoBtn.disabled = false;
+  }
+  saveContactInfoBtn.addEventListener('click', handleSaveContactInfo);
+
+  // ══════════════════════════════════
   //  الشكاوى الموجّهة للإدارة مباشرة
   // ══════════════════════════════════
   async function updateAdminCmpBadge(){
@@ -3277,7 +3342,7 @@
       <p class="modal-sub" id="feeStatusSub"></p>
       <div class="fee-status-summary" id="feeStatusSummary"></div>
       <div class="fee-status-list" id="feeStatusList"><p class="loading-note">جاري التحميل...</p></div>
-      <button class="modal-close-btn" id="feeStatusCloseBtn" style="margin-top:16px; width:100%; padding:12px; border:none; border-radius:11px; background:var(--olive-deep); color:var(--cream); font-size:14px; font-weight:700; cursor:pointer;">إغلاق</button>
+      <button class="modal-close-btn" id="feeStatusCloseBtn" style="margin-top:16px; width:100%; padding:12px; border:none; border-radius:11px; background:var(--navy-deep); color:var(--paper); font-size:14px; font-weight:700; cursor:pointer;">إغلاق</button>
     </div>
   </div>
 
@@ -3331,11 +3396,18 @@
 
       <div class="modal-field">
         <label>المواد الدراسية</label>
-        <div class="tag-input-row">
-          <input type="text" id="editSubjectInput" placeholder="اكتب اسم المادة، مثال: اللغة العربية">
-          <button type="button" class="tag-add-btn" id="editSubjectAddBtn">+ إضافة</button>
+        <div class="checkbox-group" id="editSubjectGroup">
+          <label class="checkbox-pill" data-value="اللغة العربية"><input type="checkbox" value="اللغة العربية"> اللغة العربية</label>
+          <label class="checkbox-pill" data-value="الرياضيات"><input type="checkbox" value="الرياضيات"> الرياضيات</label>
+          <label class="checkbox-pill" data-value="العلوم"><input type="checkbox" value="العلوم"> العلوم</label>
+          <label class="checkbox-pill" data-value="اللغة الإنجليزية"><input type="checkbox" value="اللغة الإنجليزية"> اللغة الإنجليزية</label>
+          <label class="checkbox-pill" data-value="التربية الإسلامية"><input type="checkbox" value="التربية الإسلامية"> التربية الإسلامية</label>
+          <label class="checkbox-pill" data-value="القرآن الكريم"><input type="checkbox" value="القرآن الكريم"> القرآن الكريم</label>
+          <label class="checkbox-pill" data-value="الدراسات الاجتماعية"><input type="checkbox" value="الدراسات الاجتماعية"> الدراسات الاجتماعية</label>
+          <label class="checkbox-pill" data-value="الحاسوب"><input type="checkbox" value="الحاسوب"> الحاسوب</label>
+          <label class="checkbox-pill" data-value="التربية الفنية"><input type="checkbox" value="التربية الفنية"> التربية الفنية</label>
+          <label class="checkbox-pill" data-value="التربية الرياضية"><input type="checkbox" value="التربية الرياضية"> التربية الرياضية</label>
         </div>
-        <div class="checkbox-group tag-group" id="editSubjectGroup"></div>
       </div>
 
       <div class="modal-actions">
@@ -3409,11 +3481,38 @@
         <div class="pw-strength" id="editStudentPwStrength"></div>
       </div>
 
+      <div class="modal-field">
+        <label>هل الطالب من ذوي الحالات الخاصة؟</label>
+        <select id="editStudentSpecialNeeds">
+          <option value="no">لا</option>
+          <option value="yes">نعم</option>
+        </select>
+      </div>
+
+      <div class="modal-field" id="editSpecialNeedsDetailsWrap" style="display:none;">
+        <label>شرح الحالة</label>
+        <textarea id="editStudentSpecialNeedsDetails" rows="3" placeholder="يرجى كتابة تفاصيل الحالة الخاصة للطالب هنا" style="width:100%; font-family:inherit; font-size:14px; padding:10px; border-radius:10px; border:1px solid var(--border); resize:vertical;"></textarea>
+      </div>
+
       <div class="modal-actions">
         <button class="modal-save-btn" id="editStudentSaveBtn">💾 حفظ التعديلات</button>
         <button class="modal-cancel-btn" id="editStudentCancelBtn">إلغاء</button>
       </div>
       <p class="modal-msg" id="editStudentMsg"></p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="specialNeedsModal">
+    <div class="modal-box">
+      <h3>🔶 تفاصيل الحالة الخاصة</h3>
+      <p class="modal-sub" id="specialNeedsModalName">اسم الطالب</p>
+      <div class="modal-field">
+        <label>شرح الحالة</label>
+        <p id="specialNeedsModalDetails" style="font-size:14px; line-height:1.9; background:var(--surface-alt); border:1px solid var(--border); border-radius:10px; padding:12px; white-space:pre-wrap;"></p>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-cancel-btn" id="specialNeedsModalCloseBtn">إغلاق</button>
+      </div>
     </div>
   </div>
 

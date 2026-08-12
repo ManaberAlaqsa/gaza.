@@ -3,7 +3,7 @@
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,38 +19,39 @@
 </script>
 <style>
   :root{
-    --olive-deep:#2f3b2a;
-    --olive:#4a5d3f;
-    --olive-soft:#6b7d5a;
-    --cream:#f7f3e8;
-    --gold:#c9973f;
-    --gold-soft:#e8d4a8;
-    --ink:#23291f;
-    --error:#a8453a;
-    --radius:18px;
-    --bg:var(--cream);
+    --navy:#0f172a;
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --blue-light:#60a5fa;
+    --gray:#94a3b8;
+    --gray-light:#e2e8f0;
+    --paper:#ffffff;
+    --ink:#0f172a;
+    --error:#dc2626;
+    --radius:28px;
+    --bg:var(--paper);
     --surface:#ffffff;
-    --heading:var(--olive-deep);
-    --menu-icon:var(--olive-deep);
-    --overlay-tint:rgba(247,243,232,0.72);
+    --heading:var(--navy);
+    --menu-icon:var(--navy);
   }
 
   html[data-theme="dark"]{
-    --bg:#161b13;
-    --surface:#232a1e;
-    --ink:#eae5d6;
-    --olive-soft:#a9bd97;
-    --heading:#e8d4a8;
-    --menu-icon:#e8d4a8;
-    --overlay-tint:rgba(10,13,8,0.8);
+    --bg:#0b1220;
+    --surface:#141e30;
+    --ink:#e7ecf3;
+    --gray:#7f8ea3;
+    --gray-light:#26334a;
+    --heading:#f1f5f9;
+    --menu-icon:#f1f5f9;
   }
   html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
 
   *{margin:0;padding:0;box-sizing:border-box;}
+  input,button,textarea,select{ font-family:inherit; }
 
   html,body{
     height:100%;
-    font-family:'Almarai','Segoe UI',sans-serif;
+    font-family:'Cairo','Segoe UI',sans-serif; font-weight:500;
     background:var(--bg);
     color:var(--ink);
     overflow:hidden;
@@ -64,229 +65,120 @@
     justify-content:center;
   }
 
+  /* ── خلفية بيضاء نظيفة مع لمسات ضوئية ناعمة ── */
   .bg-layer{
     position:fixed;
     inset:0;
     z-index:0;
     background:
-      radial-gradient(circle at 20% 20%, rgba(201,151,63,0.10), transparent 40%),
-      radial-gradient(circle at 80% 75%, rgba(74,93,63,0.14), transparent 45%),
+      radial-gradient(circle at 18% 15%, rgba(37,99,235,0.10), transparent 42%),
+      radial-gradient(circle at 85% 80%, rgba(37,99,235,0.08), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(15,23,42,0.05), transparent 50%),
       var(--bg);
     overflow:hidden;
   }
 
   .motif{
     position:absolute;
-    width:220px;
-    height:220px;
-    opacity:0.07;
-    background-image:repeating-conic-gradient(var(--olive) 0deg 45deg, transparent 45deg 90deg);
+    width:240px;
+    height:240px;
+    opacity:0.05;
+    background-image:repeating-conic-gradient(var(--blue) 0deg 45deg, transparent 45deg 90deg);
     border-radius:50%;
     animation:drift 38s linear infinite;
   }
-  .motif:nth-child(1){ top:-60px; right:-60px; animation-duration:50s;}
-  .motif:nth-child(2){ bottom:-80px; left:-40px; width:300px; height:300px; animation-duration:65s; animation-direction:reverse;}
-  .motif:nth-child(3){ top:40%; left:-100px; width:180px; height:180px; animation-duration:44s; opacity:0.05;}
+  .motif:nth-child(1){ top:-70px; right:-70px; animation-duration:50s;}
+  .motif:nth-child(2){ bottom:-90px; left:-50px; width:320px; height:320px; animation-duration:65s; animation-direction:reverse;}
+  .motif:nth-child(3){ top:40%; left:-110px; width:190px; height:190px; animation-duration:44s; opacity:0.04;}
 
   @keyframes drift{
     from{ transform:rotate(0deg); }
     to{ transform:rotate(360deg); }
   }
 
-  .grain{
-    position:absolute; inset:0;
-    background-image:radial-gradient(rgba(47,59,42,0.035) 1px, transparent 1px);
-    background-size:3px 3px;
-    pointer-events:none;
-  }
-
-  /* ── Custom background image ── */
-  .bg-image-layer{
-    position:fixed;
-    inset:0;
-    z-index:1;
-    background-image:url('53EE.jpg');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    opacity:1;
-  }
-  .bg-image-layer .overlay-dim{
-    position:absolute;
-    inset:0;
-    background:var(--overlay-tint);
-    backdrop-filter:blur(1px);
-  }
-
-  /* ── Floating particles ── */
+  /* ── جسيمات متحركة ── */
   .particles-canvas{
     position:fixed;
     inset:0;
-    z-index:2;
+    z-index:1;
     pointer-events:none;
   }
 
-  /* ── Floating shapes animation ── */
-  .float-shape{
-    position:absolute;
-    border-radius:50%;
-    opacity:0;
-    animation:floatUp 12s ease-in infinite;
-  }
-  @keyframes floatUp{
-    0%{ opacity:0; transform:translateY(0) scale(0.6) rotate(0deg); }
-    10%{ opacity:0.12; }
-    80%{ opacity:0.07; }
-    100%{ opacity:0; transform:translateY(-100vh) scale(1.1) rotate(180deg); }
-  }
-
-  /* ── Background upload button ── */
-  .bg-upload-btn{
-    position:fixed;
-    bottom:24px;
-    left:24px;
-    z-index:50;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    border:none;
-    background:var(--cream);
-    box-shadow:0 2px 10px rgba(47,59,42,0.18);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    transition:transform .25s ease, box-shadow .25s ease;
-    title:'تغيير صورة الخلفية';
-  }
-  .bg-upload-btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 4px 18px rgba(47,59,42,0.25);
-  }
-
-  .bg-upload-tooltip{
-    position:fixed;
-    bottom:78px;
-    left:16px;
-    z-index:50;
-    background:var(--olive-deep);
-    color:var(--cream);
-    font-size:12px;
-    padding:6px 12px;
-    border-radius:10px;
-    white-space:nowrap;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .2s ease;
-    direction:rtl;
-  }
-  .bg-upload-tooltip.show{ opacity:1; }
-  .bg-upload-tooltip::after{
-    content:'';
-    position:absolute;
-    bottom:-6px;
-    left:14px;
-    border:6px solid transparent;
-    border-top-color:var(--olive-deep);
-    border-bottom:none;
-  }
-
-  /* ── Remove bg button ── */
-  .bg-remove-btn{
-    position:fixed;
-    bottom:24px;
-    left:78px;
-    z-index:50;
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    border:none;
-    background:#a8453a;
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 2px 8px rgba(168,69,58,0.3);
-    transition:transform .2s ease;
-  }
-  .bg-remove-btn:hover{ transform:scale(1.1); }
-  .bg-remove-btn.visible{ display:flex; }
-
+  /* ── زر القائمة العائم ── */
   .menu-btn{
     position:fixed;
     top:24px;
     left:24px;
     z-index:40;
-    width:46px;
-    height:46px;
+    width:50px;
+    height:50px;
     border-radius:50%;
-    border:none;
+    border:1px solid var(--gray-light);
     background:var(--surface);
-    box-shadow:0 2px 10px rgba(47,59,42,0.15);
+    box-shadow:0 4px 16px rgba(15,23,42,0.12);
     cursor:pointer;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     gap:5px;
-    transition:transform .25s ease, background .3s ease;
+    transition:transform .25s ease, background .3s ease, box-shadow .25s ease;
   }
-  .menu-btn:hover{ transform:scale(1.06); }
+  .menu-btn:hover{ transform:scale(1.07); box-shadow:0 6px 22px rgba(15,23,42,0.18); }
   .menu-btn span{
     display:block;
     width:20px;
-    height:2px;
+    height:2.5px;
     background:var(--menu-icon);
     border-radius:2px;
     transition:all .3s ease;
   }
-  .menu-btn.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-btn.open span:nth-child(1){ transform:translateY(7.5px) rotate(45deg); }
   .menu-btn.open span:nth-child(2){ opacity:0; }
-  .menu-btn.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  .menu-btn.open span:nth-child(3){ transform:translateY(-7.5px) rotate(-45deg); }
 
   .side-panel{
     position:fixed;
     top:0;
     left:0;
     height:100%;
-    width:280px;
-    background:var(--olive-deep);
+    width:290px;
+    background:var(--navy);
     z-index:35;
     transform:translateX(-100%);
     transition:transform .35s cubic-bezier(.4,0,.2,1);
     padding:100px 28px 28px;
     display:flex;
     flex-direction:column;
-    gap:6px;
+    gap:8px;
   }
   .side-panel.open{ transform:translateX(0); }
 
   .side-panel a{
-    color:var(--cream);
+    color:#ffffff;
     text-decoration:none;
     font-size:16px;
+    font-weight:600;
     padding:16px 14px;
-    border-radius:10px;
+    border-radius:12px;
     transition:background .2s ease, padding-right .2s ease;
     display:flex;
     align-items:center;
     gap:12px;
-    opacity:0.92;
+    opacity:0.9;
   }
   .side-panel a:hover{
-    background:rgba(247,243,232,0.08);
+    background:rgba(255,255,255,0.08);
     padding-right:20px;
     opacity:1;
   }
   .side-panel .panel-title{
-    color:var(--gold-soft);
+    color:var(--blue-light);
     font-size:13px;
+    font-weight:700;
     letter-spacing:1px;
-    margin-bottom:14px;
-    opacity:0.8;
+    margin-bottom:16px;
+    opacity:0.85;
   }
 
   /* ── مبدّل الوضع الليلي / النهاري ── */
@@ -294,16 +186,17 @@
     display:flex;
     align-items:center;
     gap:10px;
-    background:rgba(247,243,232,0.07);
+    background:rgba(255,255,255,0.06);
     border-radius:14px;
     padding:12px 14px;
-    margin-bottom:18px;
+    margin-bottom:20px;
   }
   .theme-toggle-row .theme-icon{ font-size:16px; line-height:1; }
   .theme-toggle-row .theme-label{
     flex:1;
-    color:var(--cream);
+    color:#ffffff;
     font-size:13.5px;
+    font-weight:600;
     opacity:0.9;
   }
   .theme-switch{
@@ -321,7 +214,7 @@
   .theme-slider{
     position:absolute;
     inset:0;
-    background:rgba(247,243,232,0.22);
+    background:rgba(255,255,255,0.2);
     border-radius:24px;
     cursor:pointer;
     transition:background .25s ease;
@@ -333,12 +226,12 @@
     height:18px;
     left:3px;
     bottom:3px;
-    background:var(--cream);
+    background:#ffffff;
     border-radius:50%;
     transition:transform .25s ease;
   }
   .theme-switch input:checked + .theme-slider{
-    background:var(--gold);
+    background:var(--blue);
   }
   .theme-switch input:checked + .theme-slider::before{
     transform:translateX(20px);
@@ -347,7 +240,7 @@
   .overlay{
     position:fixed;
     inset:0;
-    background:rgba(35,41,31,0.45);
+    background:rgba(15,23,42,0.45);
     z-index:30;
     opacity:0;
     pointer-events:none;
@@ -359,79 +252,96 @@
     position:relative;
     z-index:10;
     width:100%;
-    max-width:420px;
-    padding:32px;
+    max-width:460px;
+    padding:24px;
+    display:flex;
+    justify-content:center;
+  }
+
+  /* ── البطاقة المركزية ── */
+  .card{
+    width:100%;
+    background:var(--surface);
+    border-radius:var(--radius);
+    box-shadow:
+      0 30px 60px -20px rgba(15,23,42,0.20),
+      0 10px 24px -12px rgba(15,23,42,0.10);
+    border:1px solid var(--gray-light);
+    padding:44px 36px 38px;
     display:flex;
     flex-direction:column;
     align-items:center;
     text-align:center;
+    animation:rise .7s ease both;
   }
 
   .logo-ring{
-    width:128px;
-    height:128px;
+    width:120px;
+    height:120px;
     border-radius:50%;
-    background:linear-gradient(160deg, var(--olive), var(--olive-deep));
+    background:linear-gradient(160deg, var(--blue-light), var(--blue));
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:4px;
     box-shadow:
-      0 0 0 6px var(--bg),
-      0 0 0 8px var(--gold-soft),
-      0 18px 36px -10px rgba(47,59,42,0.45);
-    margin-bottom:22px;
+      0 0 0 6px rgba(37,99,235,0.08),
+      0 14px 30px -10px rgba(37,99,235,0.35);
+    margin-bottom:20px;
     animation:rise .7s ease both;
     position:relative;
-    overflow:hidden;
   }
   .logo-ring img{
     width:100%;
     height:100%;
     object-fit:cover;
     border-radius:50%;
+    border:3px solid var(--surface);
   }
   .logo-ring .placeholder-mark{
-    color:var(--gold-soft);
+    color:#ffffff;
     font-size:42px;
-    font-weight:700;
-    font-family:Georgia,serif;
+    font-weight:800;
   }
 
   @keyframes rise{
-    from{ opacity:0; transform:translateY(14px) scale(.94); }
+    from{ opacity:0; transform:translateY(14px) scale(.96); }
     to{ opacity:1; transform:translateY(0) scale(1); }
   }
 
   .school-name{
-    font-size:22px;
-    font-weight:700;
+    font-size:24px;
+    font-weight:800;
     color:var(--heading);
-    margin-bottom:4px;
+    margin-bottom:6px;
+    line-height:1.35;
     animation:rise .7s ease .08s both;
   }
   .school-sub{
-    font-size:13px;
-    color:var(--olive-soft);
+    font-size:15px;
+    font-weight:500;
+    color:var(--gray);
     margin-bottom:30px;
-    letter-spacing:.5px;
+    letter-spacing:.3px;
     animation:rise .7s ease .14s both;
   }
 
   .login-label{
-    font-size:14px;
+    font-size:16px;
     color:var(--heading);
-    font-weight:600;
-    margin-bottom:14px;
+    font-weight:700;
+    margin-bottom:18px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
     animation:rise .7s ease .18s both;
   }
   .login-label::before, .login-label::after{
     content:'';
-    width:28px;
-    height:1px;
-    background:var(--gold-soft);
+    width:32px;
+    height:2px;
+    border-radius:2px;
+    background:var(--gray-light);
   }
 
   .login-form{
@@ -441,22 +351,24 @@
 
   .id-input{
     width:100%;
-    padding:16px 18px;
-    border-radius:14px;
-    border:2px solid var(--gold-soft);
-    background:var(--surface);
-    font-size:17px;
+    padding:18px 20px;
+    border-radius:16px;
+    border:2px solid var(--gray-light);
+    background:#f8fafc;
+    font-size:18px;
+    font-weight:600;
     text-align:center;
-    letter-spacing:1px;
+    letter-spacing:.5px;
     color:var(--ink);
     outline:none;
     transition:border-color .2s ease, box-shadow .2s ease, background .3s ease;
     direction:ltr;
   }
-  .id-input::placeholder{ font-size:14px; letter-spacing:0; color:#b6ad94; }
+  .id-input::placeholder{ font-size:15px; font-weight:500; letter-spacing:0; color:#a3adbd; }
   .id-input:focus{
-    border-color:var(--olive);
-    box-shadow:0 0 0 4px rgba(74,93,63,0.12);
+    border-color:var(--blue);
+    background:var(--surface);
+    box-shadow:0 0 0 5px rgba(37,99,235,0.15);
   }
   .id-input.shake{ animation:shake .4s ease; border-color:var(--error); }
   @keyframes shake{
@@ -469,10 +381,10 @@
 
   .error-note{
     color:var(--error);
-    font-size:13px;
-    margin-top:10px;
+    font-size:14px;
+    margin-top:12px;
     min-height:18px;
-    font-weight:600;
+    font-weight:700;
     opacity:0;
     transition:opacity .2s ease;
   }
@@ -480,48 +392,52 @@
 
   .continue-btn{
     width:100%;
-    margin-top:16px;
-    padding:15px;
+    margin-top:18px;
+    padding:18px;
     border:none;
-    border-radius:14px;
-    background:var(--olive-deep);
-    color:var(--cream);
-    font-size:16px;
-    font-weight:700;
+    border-radius:16px;
+    background:var(--blue);
+    color:#ffffff;
+    font-size:18px;
+    font-weight:800;
     cursor:pointer;
-    transition:background .2s ease, transform .15s ease;
-    letter-spacing:.5px;
+    box-shadow:0 10px 24px -8px rgba(37,99,235,0.45);
+    transition:background .2s ease, transform .18s ease, box-shadow .2s ease;
+    letter-spacing:.3px;
   }
-  .continue-btn:hover{ background:var(--olive); }
+  .continue-btn:hover{ background:var(--blue-dark); transform:translateY(-2px); box-shadow:0 14px 30px -8px rgba(37,99,235,0.55); }
   .continue-btn:active{ transform:scale(.98); }
-  .continue-btn:disabled{ background:#aaa; cursor:not-allowed; }
+  .continue-btn:disabled{ background:var(--gray); box-shadow:none; cursor:not-allowed; transform:none; }
 
   .sub-links{
-    margin-top:22px;
+    margin-top:24px;
     display:flex;
     align-items:center;
     justify-content:center;
     gap:14px;
-    font-size:12.5px;
+    font-size:13.5px;
+    font-weight:600;
     animation:rise .7s ease .26s both;
   }
   .sub-links a{
-    color:var(--olive-soft);
+    color:var(--gray);
     text-decoration:none;
-    border-bottom:1px dashed var(--olive-soft);
+    border-bottom:1px dashed var(--gray);
     padding-bottom:1px;
-    transition:color .2s ease;
+    transition:color .2s ease, border-color .2s ease;
   }
-  .sub-links a:hover{ color:var(--heading); }
+  .sub-links a:hover{ color:var(--blue); border-color:var(--blue); }
   .sub-links .dot{
     width:3px; height:3px;
     border-radius:50%;
-    background:var(--gold);
+    background:var(--gray-light);
   }
 
   @media (max-width:480px){
-    .stage{ padding:22px; max-width:100%; }
-    .logo-ring{ width:104px; height:104px; }
+    .stage{ padding:16px; max-width:100%; }
+    .card{ padding:34px 22px 30px; border-radius:24px; }
+    .logo-ring{ width:100px; height:100px; }
+    .school-name{ font-size:20px; }
   }
 </style>
 </head>
@@ -531,11 +447,6 @@
     <div class="motif"></div>
     <div class="motif"></div>
     <div class="motif"></div>
-    <div class="grain"></div>
-  </div>
-
-  <div class="bg-image-layer" id="bgImageLayer">
-    <div class="overlay-dim"></div>
   </div>
 
   <canvas class="particles-canvas" id="particlesCanvas"></canvas>
@@ -566,43 +477,43 @@
   </nav>
 
   <main class="stage">
-    <div class="logo-ring">
-      <img src="53EE.jpg" alt="شعار المدرسة">
-    </div>
+    <div class="card">
+      <div class="logo-ring">
+        <img src="53EE.jpg" alt="شعار المدرسة">
+      </div>
 
-    <h1 class="school-name">مركز منابر الأقصى _نظام التعليم الالكتروني</h1>
-    <p class="school-sub">بوابة الطلاب والمعلمين</p>
+      <h1 class="school-name">مركز منابر الأقصى<br>نظام التعليم الإلكتروني</h1>
+      <p class="school-sub">بوابة الطلاب والمعلمين</p>
 
-    <div class="login-label">تسجيل الدخول</div>
+      <div class="login-label">تسجيل الدخول</div>
 
-    <form class="login-form" id="loginForm" onsubmit="return false;">
-      <input
-        type="text"
-        id="idInput"
-        class="id-input"
-        placeholder="رقم الهوية (9 أرقام) أو اسم المستخدم"
-        maxlength="30"
-      >
-      <input
-        type="password"
-        id="passwordInput"
-        class="id-input"
-        placeholder="كلمة السر"
-        maxlength="30"
-        style="margin-top:10px;"
-      >
-      <p class="error-note" id="errorNote">رقم الهوية غير موجود</p>
-      <button type="submit" class="continue-btn" id="continueBtn">تسجيل الدخول</button>
-    </form>
+      <form class="login-form" id="loginForm" onsubmit="return false;">
+        <input
+          type="text"
+          id="idInput"
+          class="id-input"
+          placeholder="رقم الهوية (9 أرقام) أو اسم المستخدم"
+          maxlength="30"
+        >
+        <input
+          type="password"
+          id="passwordInput"
+          class="id-input"
+          placeholder="كلمة السر"
+          maxlength="30"
+          style="margin-top:12px;"
+        >
+        <p class="error-note" id="errorNote">رقم الهوية غير موجود</p>
+        <button type="submit" class="continue-btn" id="continueBtn">تسجيل الدخول</button>
+      </form>
 
-    <div class="sub-links">
-      <a href="#" id="forgotPasswordLink" onclick="alert('عزيزي الطالب يرجى التواصل مع ادارة المركز لإتمام عملية إسترجاع بيانات الدخول'); return false;">نسيت كلمة السر؟</a>
-      <span class="dot"></span>
-      <a href="teacher-login.html">نظام دخول المعلمين</a>
+      <div class="sub-links">
+        <a href="#" id="forgotPasswordLink" onclick="alert('عزيزي الطالب يرجى التواصل مع ادارة المركز لإتمام عملية إسترجاع بيانات الدخول'); return false;">نسيت كلمة السر؟</a>
+        <span class="dot"></span>
+        <a href="teacher-login.html">نظام دخول المعلمين</a>
+      </div>
     </div>
   </main>
-
-  <!-- Background image upload removed - static background -->
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -835,7 +746,7 @@
   resize();
   window.addEventListener('resize', resize);
 
-  const colors = ['rgba(201,151,63,', 'rgba(74,93,63,', 'rgba(107,125,90,', 'rgba(232,212,168,'];
+  const colors = ['rgba(37,99,235,', 'rgba(96,165,250,', 'rgba(15,23,42,', 'rgba(148,163,184,'];
 
   class Particle {
     constructor(){
@@ -903,7 +814,7 @@
     draw(){
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,151,63,${this.opacity})`;
+      ctx.fillStyle = `rgba(37,99,235,${this.opacity})`;
       ctx.fill();
     }
   }
