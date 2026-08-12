@@ -314,6 +314,8 @@
   .teacher-note-inner .tn-icon{ font-size:24px; flex-shrink:0; margin-top:1px; }
   .teacher-note-inner .tn-body .tn-label{ font-size:11.5px; font-weight:700; color:#a06a10; margin-bottom:5px; }
   .teacher-note-inner .tn-body .tn-text{ font-size:14px; color:#4a3a1a; line-height:1.8; white-space:pre-wrap; }
+  #teacherNoteList .teacher-note-inner{ margin-bottom:10px; }
+  #teacherNoteList .teacher-note-inner:last-child{ margin-bottom:0; }
 
   /* ===== تعليمات/تنبيهات المسؤول ===== */
   .admin-notice-card{
@@ -511,13 +513,7 @@
 
 <!-- ملاحظة المعلم الخاصة (تظهر فقط إن وجدت) -->
 <div class="teacher-note-card" id="teacherNoteCard" style="display:none;">
-  <div class="teacher-note-inner">
-    <div class="tn-icon">📌</div>
-    <div class="tn-body">
-      <div class="tn-label">ملاحظة من معلمك</div>
-      <div class="tn-text" id="teacherNoteText"></div>
-    </div>
-  </div>
+  <div id="teacherNoteList"></div>
 </div>
 
 <!-- تنبيهات الرسوم الدراسية (تظهر فقط إن وجدت تعليمات دفع لم يؤكد الطالب دفعها بعد) -->
@@ -1785,19 +1781,30 @@
 
   async function loadTeacherNote(natId){
     const card = document.getElementById('teacherNoteCard');
-    const text = document.getElementById('teacherNoteText');
+    const list = document.getElementById('teacherNoteList');
     try{
-      // البحث في teacher_students عن أي سجل يحمل نفس رقم الهوية وله ملاحظة
+      // البحث في teacher_students عن كل سجل يحمل نفس رقم الهوية وله ملاحظة (قد يكون لدى أكثر من معلم ملاحظة)
       const snap = await getDocs(query(collection(db,'teacher_students'), where('natId','==',natId)));
-      let foundNote = '';
+      const notes = [];
       snap.forEach(d => {
-        const note = d.data().note;
-        if(note && note.trim()) foundNote = note.trim();
+        const data = d.data();
+        const note = data.note;
+        if(note && note.trim()){
+          notes.push({ text: note.trim(), teacherName: (data.noteByName && data.noteByName.trim()) || 'معلمك' });
+        }
       });
-      if(foundNote){
-        text.textContent = foundNote;
+      if(notes.length){
+        list.innerHTML = notes.map(n => `
+          <div class="teacher-note-inner">
+            <div class="tn-icon">📌</div>
+            <div class="tn-body">
+              <div class="tn-label">ملاحظة من: ${escapeHtml(n.teacherName)}</div>
+              <div class="tn-text">${escapeHtml(n.text)}</div>
+            </div>
+          </div>`).join('');
         card.style.display = 'block';
       } else {
+        list.innerHTML = '';
         card.style.display = 'none';
       }
     }catch(e){ console.error(e); }

@@ -33,6 +33,7 @@
     --border-soft:#dbe4ee;
     --muted:#94a3b8;
     --heading:var(--navy-deep);
+    --input-bg:#f8fafc;
   }
 
   html[data-theme="dark"]{
@@ -45,6 +46,7 @@
     --border-soft:#22303f;
     --muted:#64748b;
     --heading:#f1f5f9;
+    --input-bg:#1a2740;
   }
   html[data-theme="dark"] body{ transition:background .3s ease, color .3s ease; }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -133,7 +135,7 @@
     padding:15px 18px;
     border-radius:14px;
     border:2px solid var(--border-soft);
-    background:#f8fafc;
+    background:var(--input-bg);
     font-size:16px;
     font-weight:600;
     outline:none;
@@ -185,7 +187,9 @@
   <a href="index.html" class="back-link">→ عودة للرئيسية</a>
 
   <div class="card">
-    <div class="icon-badge">🧑‍🏫</div>
+    <div class="icon-badge" style="overflow:hidden; padding:0;">
+      <img src="5324.jpg" alt="شعار المركز" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">
+    </div>
     <h1>دخول المعلمين</h1>
     <p class="sub">مركز منابر الأقصى</p>
 
